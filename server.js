@@ -31,33 +31,49 @@ console.log("Database Connected!");
 });
 
 app.post('/registro', (req, res) => {
-    const { nome, email, senha } = req.body;
+    console.log(req.body)
+    let nome = req.body.nome;
+    let senha = req.body.password;
+    let email = req.body.email
+
     // Verifique se o email já está em uso
-    const verificaEmail = 'SELECT * FROM utilizadores WHERE email = ?';
-     dbase.query(verificaEmail, [email], (err, results) => {
-      if (err) {
-        console.error('Erro na verificação de email:', err);
-        res.status(500).json({ mensagem: 'Erro no registro' });
-        return;
-      }
+    let verificar = "SELECT * from utilizadores WHERE Nome ='" +nome+"' ;"
 
-      if (results.length > 0) {
-        res.status(409).json({ mensagem: 'Email já está em uso' });
-        return;
-      }
+     dbase.query(verificar,(err, results) => {
+      if (err) throw err; 
 
-      // Insira os dados do usuário no banco de dados
-      const meterBacane = 'INSERT INTO utilizadores (nome, email, password) VALUES (?, ?, ?)';
-      dbase.query(meterBacane, [nome, email, senha], (err, result) => {
-        if (err) {
-          console.error('Erro no registro:', err);
-          res.status(500).json({ mensagem: 'Erro no registro' });
-          return;
+        if(results.length>0){
+          res.send({"ack":0})
+
+        }else{
+          let verificar = "INSERT INTO utilizadores(nome, password, email ) VALUES('"+nome+"', '"+senha+"','"+email+"') ";
+          dbase.query(verificar,(err,result)=>{
+            if(err) throw err; 
+            res.send({"ack":1});
+        });
+
         }
-        res.status(200).json({ mensagem: 'Registro bem-sucedido' });
-      });
+     });
     });
-  });
+
+    app.post('/login',(req,res)=>{
+
+      let nome = req.body.nome;
+      let senha = req.body.senha;
+    
+      let sql = "SELECT * FROM utilizadores WHERE nome='"+nome+"' AND password = '"+senha+"';"
+    
+      dbase.query(sql, (err,result)=>{
+      if(err) throw err; 
+    
+        res.send(result);
+    
+      });
+    
+    });
+
+
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
-  })
+ })
