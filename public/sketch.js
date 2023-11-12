@@ -1,6 +1,7 @@
 let nomeInput;
 let emailInput;
 let senhaInput;
+let loginBtn;
 let registarButton;
 
 let scene = 0; // 0 for login scene, 1 for game scene
@@ -40,7 +41,7 @@ function registar() {
     console.log(respostaServer);
 
     if(respostaServer.ack == 0){
-    
+      scene =1;
       alert("Utilizador Já Existe");
     }else{
       alert("Registo Efectuado Com Sucesso!");      
@@ -59,9 +60,13 @@ function login(){
   
 
   httpPost('/login', user, 'json', (respostaServer)=>{
-    if(respostaServer.ack == 1){
+    if(respostaServer.length >0){
       userServ = respostaServer;
-
+      nomeInput.remove();
+      senhaInput.remove();
+      loginBtn.remove();
+      emailInput.remove();
+      registarButton.remove();
       scene=1;
    
       console.log(userServ);
@@ -69,48 +74,55 @@ function login(){
    
       }else{
       alert("Login sem sucesso")
+      
    
      }
    
      });}
 
 
-function loginScene(){
+     function loginScene() {
 
-  push()
-  background(fundo, 100);
-  let canvasCenterX = width / 2;
-  let canvasCenterY = height / 2;
+      
+      let canvasCenterX = width / 2;
+      let canvasCenterY = height / 2;
+    
+      push();
+      background(fundo, 200);
 
-  noStroke();
-  fill(255, 100); // Cor branca com 50% de transparência
-  rect(canvasCenterX - 100, canvasCenterY - 100, 200, 250);
+      noStroke();
+      fill(255, 190); 
+      rect(windowWidth / 2 - 150, windowHeight / 2 - 150, 400, 400);
+          
+      // Rótulos (Labels)
+      createP('Nome:').position(canvasCenterX - 60, canvasCenterY - 65);
+      createP('Email:').position(canvasCenterX - 60, canvasCenterY - 15);
+      createP('Senha:').position(canvasCenterX - 60, canvasCenterY + 35);
+    
+      // Campos de entrada (Input fields)
+      nomeInput = createInput();
+      nomeInput.position(canvasCenterX, canvasCenterY - 50);
+      nomeInput.style('text-align', 'center');
+    
+      emailInput = createInput();
+      emailInput.position(canvasCenterX, canvasCenterY);
+      emailInput.style('text-align', 'center');
+    
+      senhaInput = createInput();
+      senhaInput.position(canvasCenterX, canvasCenterY + 50);
+      senhaInput.style('text-align', 'center');
+    
+      loginBtn = createButton('Login');
+      loginBtn.position(canvasCenterX + 100, canvasCenterY + 100);
+      loginBtn.mousePressed(login);
 
-  // Rótulos
-  createP('Nome:').position(canvasCenterX - 60, canvasCenterY - 65);
-  createP('Email:').position(canvasCenterX - 60, canvasCenterY-15);
-  createP('Senha:').position(canvasCenterX - 60, canvasCenterY + 35);
-
-  // Campos de entrada
-  
-  nomeInput = createInput();
-  nomeInput.position(canvasCenterX, canvasCenterY - 50);
-  nomeInput.style('text-align', 'center');
-
-  emailInput = createInput();
-  emailInput.position(canvasCenterX, canvasCenterY);
-  emailInput.style('text-align', 'center');
-
-  senhaInput = createInput();
-  senhaInput.position(canvasCenterX, canvasCenterY + 50);
-  senhaInput.style('text-align', 'center');
-
-  registarButton = createButton('registar');
-  registarButton.position(canvasCenterX , canvasCenterY + 100);
-  registarButton.mousePressed(registar);
-
-  pop()
-}
+      registarButton = createButton('registar');
+      registarButton.position(canvasCenterX, canvasCenterY + 100);
+      registarButton.mousePressed(registar);
+    
+      pop();
+    }
+    
 
 
 function gameScene(){

@@ -59,7 +59,7 @@ app.post('/registro', (req, res) => {
     app.post('/login',(req,res)=>{
 
       let nome = req.body.nome;
-      let senha = req.body.senha;
+      let senha = req.body.password;
     
       let sql = "SELECT * FROM utilizadores WHERE nome='"+nome+"' AND password = '"+senha+"';"
     
