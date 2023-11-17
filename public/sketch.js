@@ -5,8 +5,13 @@ let loginBtn;
 let registarButton;
 let generoSelecionado = ""; // Armazena o personagem selecionado
 let telaSelecaoGenero = false; // Flag para indicar se está na tela de seleção de personagem
+let quadradoVisivel = true; // Mude para false se quiser ocultar inicialmente
 
-let scene = 1; 
+let board = [];
+let gridSize = 3; // Number of rows and columns in the grid
+let squareSize;
+
+let scene = 2; 
 
 let userServ;
 function setup() {
@@ -26,12 +31,18 @@ function draw() {
     } else {
       // Se já estiver na tela de seleção, vá para a cena do jogo
       console.log("Chamando gameScene");
+      draw_Board(); 
       gameScene();
+      
     }
   } else if (scene === 2) {
-    // Cena do jogo
+    
+    clear();
     console.log("Chamando gameScene2");
+    draw_Board();
     gameScene();
+    
+    
   }
   console.log(`Cena Atual: ${scene}`);
   noLoop();
@@ -141,11 +152,14 @@ function login(){
 
 
 function gameScene(){
-  background(relva);
-
+  createCanvas(windowWidth,windowHeight)
+  background(relva)
   
+  desenharQuadrado();
   
+ 
   
+ 
 }
 
 //FUNCOES PARA SELECIONAR BACANO/BACANA
@@ -179,17 +193,27 @@ function desenharBotao(x, y, largura, altura, imagem) {
 }
 
 function mousePressed() {
-  console.log("Mouse pressionado");
+  //console.log("Mouse pressionado");
 
   if (scene === 1) {
     verificarSelecaoGenero(width / 3, height / 2, 200, 220, "Homem");
     verificarSelecaoGenero((3 * width) / 4, height / 2, 200, 220, "Mulher");
 
-    // Movida a verificação de cena para aqui
+   
     if (generoSelecionado !== "") {
       scene = 2;
+      loop();
+      
     }
   }
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board[i].length; j++) {
+      if (board[i][j].click_Tile(mouseX, mouseY)) {
+        console.log(board[i][j].tx, board[i][j].ty);
+      }
+    }
+  }
+
 }
 
 function verificarSelecaoGenero(x, y, largura, altura, genero) {
@@ -205,6 +229,47 @@ function verificarSelecaoGenero(x, y, largura, altura, genero) {
 
 
 //TERMINO BACANO/BACANA
+
+
+function desenharQuadrado() {
+  fill(150, 245 ); // Cor do quadrado
+  noStroke(); // Sem contorno
+  rectMode(CORNER);
+
+  // Calcula o tamanho do quadrado com base nas dimensões da tela
+  let tamanhoQuadrado = min(width, height) * 0.1;
+
+  
+  rect(20, 20, tamanhoQuadrado, tamanhoQuadrado, 20);
+}
+
+// FUNCOES PARA GRID
+function draw_Board() {
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board[i].length; j++) {
+      board[i][j].draw_Tile();
+    }
+  }
+}
+
+function create_Board() {
+  let initialPosX = (width - gridSize * squareSize) / 2;
+  let initialPosY = (height - gridSize * squareSize) / 2;
+
+  for (let i = 0; i < gridSize; i++) {
+    board[i] = [];
+    for (let j = 0; j < gridSize; j++) {
+      let x = initialPosX + i * squareSize;
+      let y = initialPosY + j * squareSize;
+      board[i][j] = new Tile(x, y, i, j, squareSize);
+    }
+  }
+}
+
+//FIM FUCOENS GRID  
+
+
+
 function preload(){
   fundo = loadImage("./recursos/fundo.jpg");
   relva = loadImage("./recursos/relva.jpg");
