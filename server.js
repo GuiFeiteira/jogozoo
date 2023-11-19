@@ -53,25 +53,49 @@ app.post('/registro', (req, res) => {
         });
 
         }
+        
      });
+     let initMoney = "UPDATE utilizadores SET dinheiro = 500 WHERE nome = '" + nome + "'";
+     dbase.query(initMoney, (err, result) => {
+       if (err) throw err;
+       console.log(`Dinheiro inicializado para ${nome}`);
+     });
+
     });
 
-    app.post('/login',(req,res)=>{
-
+    app.post('/login', (req, res) => {
       let nome = req.body.nome;
       let senha = req.body.password;
     
-      let sql = "SELECT * FROM utilizadores WHERE nome='"+nome+"' AND password = '"+senha+"';"
+      let sql = "SELECT * FROM utilizadores WHERE nome='" + nome + "' AND password = '" + senha + "';"
     
-      dbase.query(sql, (err,result)=>{
-      if(err) throw err; 
+      dbase.query(sql, (err, result) => {
+        if (err) throw err;
     
-        res.send(result);
+        if (result.length > 0) {
+          let getMoney = "SELECT dinheiro FROM utilizadores WHERE nome = '" + nome + "'";
+          dbase.query(getMoney, (err, moneyResult) => {
+            if (err) throw err;
     
+            result[0].dinheiro = moneyResult[0].dinheiro;
+            res.send(result);
+          });
+        } else {
+          res.send([]);
+        }
       });
-    
     });
-
+    
+    app.post('/updateMoney', (req, res) => {
+      const nome = req.body.nome;
+      const novoDinheiro = req.body.novoDinheiro;
+    
+      let updateMoney = "UPDATE utilizadores SET dinheiro = " + novoDinheiro + " WHERE nome = '" + nome + "'";
+      dbase.query(updateMoney, (err, result) => {
+        if (err) throw err;
+        res.send('Dinheiro atualizado com sucesso');
+      });
+    });
 
 
 app.listen(port, () => {
