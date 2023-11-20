@@ -54,7 +54,7 @@ app.post('/registro', (req, res) => {
               let userId = result.insertId;
 
               // Agora, insira um registo correspondente na tabela grid
-              let initGrid = "INSERT INTO grid(user_id) VALUES(" + userId + ")";
+              let initGrid = "INSERT INTO tiles(user_id) VALUES(" + userId + ")";
               dbase.query(initGrid, (err, result) => {
                   if (err) throw err;
 
