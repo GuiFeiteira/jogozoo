@@ -5,12 +5,18 @@ class Tile {
       this.tx = tx ;
       this.ty = ty;
       this.s = s;
+      //this.cativeiro = new Cativeiro(); 
     }
   
     draw_Tile() {
       noFill();
       //noStroke();
+      stroke(BOLD)
       square(this.x, this.y, this.s);
+      if (this.cativeiro) {
+        this.cativeiro.desenharCativeiro(this.x, this.y, this.s);
+      }
+
     }
   
     click_Tile(x, y) {
@@ -46,6 +52,11 @@ class Tile {
         let x = initialPosX + i * squareSize;
         let y = initialPosY + j * squareSize;
         board[i][j] = new Tile(x, y, i, j, squareSize);
+  
+        // Adiciona cativeiro apenas ao tile na posição (1,1)
+        if (i === 1 && j === 1) {
+          board[i][j].cativeiro = new Cativeiro();
+        }
       }
     }
   }

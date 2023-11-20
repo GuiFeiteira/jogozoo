@@ -31,37 +31,48 @@ console.log("Database Connected!");
 });
 
 app.post('/registro', (req, res) => {
-    console.log(req.body)
-    let nome = req.body.nome;
-    let senha = req.body.password;
-    let email = req.body.email
+  console.log(req.body)
+  let nome = req.body.nome;
+  let senha = req.body.password;
+  let email = req.body.email;
 
-    // Verifique se o email já está em uso
-    let verificar = "SELECT * from utilizadores WHERE Nome ='" +nome+"' ;"
+  // Verifique se o email já está em uso
+  let verificar = "SELECT * from utilizadores WHERE Nome ='" + nome + "' ;"
 
-     dbase.query(verificar,(err, results) => {
-      if (err) throw err; 
+  dbase.query(verificar, (err, results) => {
+      if (err) throw err;
 
-        if(results.length>0){
-          res.send({"ack":0})
+      if (results.length > 0) {
+          res.send({ "ack": 0 })
+      } else {
+          // Insira o utilizador na tabela utilizadores
+          let inserirUsuario = "INSERT INTO utilizadores(nome, password, email) VALUES('" + nome + "', '" + senha + "','" + email + "') ";
+          dbase.query(inserirUsuario, (err, result) => {
+              if (err) throw err;
 
-        }else{
-          let verificar = "INSERT INTO utilizadores(nome, password, email ) VALUES('"+nome+"', '"+senha+"','"+email+"') ";
-          dbase.query(verificar,(err,result)=>{
-            if(err) throw err; 
-            res.send({"ack":1});
-        });
+              // Recupere o ID do utilizador recém-criado
+              let userId = result.insertId;
 
-        }
-        
-     });
-     let initMoney = "UPDATE utilizadores SET dinheiro = 500 WHERE nome = '" + nome + "'";
-     dbase.query(initMoney, (err, result) => {
-       if (err) throw err;
-       console.log(`Dinheiro inicializado para ${nome}`);
-     });
+              // Agora, insira um registo correspondente na tabela grid
+              let initGrid = "INSERT INTO grid(user_id) VALUES(" + userId + ")";
+              dbase.query(initGrid, (err, result) => {
+                  if (err) throw err;
 
-    });
+                  // Após a inserção bem-sucedida, inicialize o dinheiro
+                  let initMoney = "UPDATE utilizadores SET dinheiro = 500 WHERE nome = '" + nome + "'";
+                  dbase.query(initMoney, (err, result) => {
+                      if (err) throw err;
+                      console.log(`Dinheiro inicializado para ${nome}`);
+                  });
+
+                  res.send({ "ack": 1 });
+              });
+          });
+      }
+  });
+});
+
+
 
     app.post('/login', (req, res) => {
       let nome = req.body.nome;
