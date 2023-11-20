@@ -26,30 +26,6 @@ function desenharTelaSelecaoGenero() {
     fill(0);
   }
   
-  function mousePressed() {
-    //console.log("Mouse pressionado");
-  
-    if (scene === 1) {
-      verificarSelecaoGenero(width / 3, height / 2, 200, 220, "Homem");
-      verificarSelecaoGenero((3 * width) / 4, height / 2, 200, 220, "Mulher");
-  
-     
-      if (generoSelecionado !== "") {
-        scene = 2;
-        loop();
-        
-      }
-    }
-    for (let i = 0; i < board.length; i++) {
-      for (let j = 0; j < board[i].length; j++) {
-        if (board[i][j].click_Tile(mouseX, mouseY)) {
-          console.log(board[i][j].tx, board[i][j].ty);
-          board[i][j].cativeiro = new Cativeiro();
-        }
-      }
-    }
-  
-  }
   
   function verificarSelecaoGenero(x, y, largura, altura, genero) {
   
