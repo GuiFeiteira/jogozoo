@@ -56,10 +56,11 @@ function login() {
             if (board[cativeiro.tile_x] && board[cativeiro.tile_x][cativeiro.tile_y]) {
               console.log('A meter alto cativeiro', cativeiro)
               board[cativeiro.tile_x][cativeiro.tile_y].cativeiro = new Cativeiro();
+              loop()
             }
           }
         }
-
+      })
         atualizarDinheiro(userServ[0].dinheiro);
 
         nomeInput.remove();
@@ -71,7 +72,7 @@ function login() {
 
         console.log(userServ);
         loop();
-        })
+
 
       
 
