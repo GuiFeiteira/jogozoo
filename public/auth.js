@@ -5,11 +5,11 @@ function registar() {
   let genero = generoSelecionado;
 
   let user = {
-    'nome': nome,
-    'email': email,
-    'password': senha,
-    'dinheiro': dinheiro,
-    'genero': genero,
+    nome: nome,
+    email: email,
+    password: senha,
+    dinheiro: dinheiro,
+    genero: genero,
 
     //"popularidade": popularidade,
   };
@@ -31,54 +31,48 @@ function registar() {
   });
 }
 
-
-
-
 function login() {
   let nome = nomeInput.value();
   let senha = senhaInput.value();
 
   let user = {
-    'nome': nome,
-    'password': senha,
+    nome: nome,
+    password: senha,
   };
 
   httpPost("/login", user, "json", (respostaServer) => {
     if (respostaServer.length > 0) {
       userServ = respostaServer;
 
-      loadJSON('/getTiles/' + userServ[0].id,(resposta)=>{
-        buildingsPlayer=resposta;
-        console.log(buildingsPlayer)
+      loadJSON("/getTiles/" + userServ[0].id, (resposta) => {
+        buildingsPlayer = resposta;
+        console.log(buildingsPlayer);
         if (buildingsPlayer.length > 0) {
           for (let i = 0; i < buildingsPlayer.length; i++) {
             let cativeiro = buildingsPlayer[i];
-            if (board[cativeiro.tile_x] && board[cativeiro.tile_x][cativeiro.tile_y]) {
-              console.log('A meter alto cativeiro', cativeiro)
-              board[cativeiro.tile_x][cativeiro.tile_y].cativeiro = new Cativeiro();
-              loop()
+            if (
+              board[cativeiro.tile_x] &&
+              board[cativeiro.tile_x][cativeiro.tile_y]
+            ) {
+              console.log("A meter alto cativeiro", cativeiro);
+              board[cativeiro.tile_x][cativeiro.tile_y].cativeiro =
+                new Cativeiro();
+              loop();
             }
           }
         }
-      })
-        atualizarDinheiro(userServ[0].dinheiro);
+      });
+      atualizarDinheiro(userServ[0].dinheiro);
 
-        nomeInput.remove();
-        senhaInput.remove();
-        loginBtn.remove();
-        emailInput.remove();
-        registarButton.remove();
-        scene = 2;
+      nomeInput.remove();
+      senhaInput.remove();
+      loginBtn.remove();
+      emailInput.remove();
+      registarButton.remove();
+      scene = 2;
 
-        console.log(userServ);
-        loop();
-
-
-      
-
-      // Faça uma chamada para recuperar os edifícios associados a este utilizador
-
-
+      console.log(userServ);
+      loop();
     } else {
       alert("Login sem sucesso");
     }
