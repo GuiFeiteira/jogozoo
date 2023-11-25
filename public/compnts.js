@@ -1,10 +1,12 @@
 let dinheiro = 500;
+let contadorDias = 0;
 
 function gameScene() {
   background(relva);
   draw_Board();
   desenharQuadrado();
   desenharBarraDoTopo();
+  tempo();
 }
 
 function desenharBarraDoTopo() {
@@ -43,4 +45,30 @@ function desenharQuadrado() {
 
 function atualizarDinheiro(novoValor) {
   dinheiro = novoValor;
+}
+
+function tempo(){
+  let data = new Date(2023, 0, 1);
+  data.setDate(contadorDias);
+
+  let dia = data.getDate();
+  let mes = data.getMonth() + 1;
+  let ano = data.getFullYear();
+
+  // Desenhe a barra no topo
+  fill(255);
+  noStroke();
+  rect(width - 800, 20, 100, 40, 10);
+
+  // Adicione o texto para mostrar o valor do contador de dias
+  fill(0);
+  textAlign(CENTER, CENTER);
+
+  textSize(20);
+  text(`${dia}/${mes}/${ano}`, width - 750, 43);
+  console.log(dia)
+}
+
+function atualizarTempo() {
+  contadorDias += 1; // Incrementa o contador de dias
 }

@@ -19,12 +19,14 @@ function setup() {
   squareSize = min(width, height) / gridSize;
 
   create_Board();
+  setInterval(atualizarTempo, 1000);
 }
 
 
 function draw() {
   if (scene === 0) {
     loginScene();
+    noLoop();
   }if (scene === 1) {
     if (!telaSelecaoGenero) {
       // Se não estiver na tela de seleção de personagem, vá para a cena de seleção
@@ -38,14 +40,12 @@ function draw() {
       
     }
   } else if (scene === 2) {
-    
     clear();
     console.log("Chamando gameScene2");
     draw_Board();
     gameScene();
   }
   console.log(`Cena Atual: ${scene}`);
-  noLoop();
 }
 function gameScene(){ 
   background(relva)
