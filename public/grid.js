@@ -5,7 +5,8 @@ class Tile {
     this.tx = tx;
     this.ty = ty;
     this.s = s;
-    this.cativeiro = null; 
+    this.cativeiro = null;
+    this.bilheteira = null;
   }
 
   draw_Tile() {
@@ -17,6 +18,11 @@ class Tile {
   draw_Cativeiro() {
     if (this.cativeiro) {
       this.cativeiro.desenharCativeiro(this.x, this.y, this.s);
+    }
+  }
+  draw_Bilheteira() {
+    if (this.bilheteira) {
+      image(this.bilheteira.bilhImagem, this.x, this.y, this.s, this.s);
     }
   }
 
@@ -34,16 +40,12 @@ function draw_Board() {
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[i].length; j++) {
       board[i][j].draw_Tile();
+      board[i][j].draw_Cativeiro();
+      board[i][j].draw_Bilheteira();
     }
   }
 
-  // Desenhe cativeiros após os tiles
-  for (let i = 0; i < board.length; i++) {
-    for (let j = 0; j < board[i].length; j++) {
-      board[i][j].draw_Cativeiro();
-      
-    }
-  }
+
 }
 
 function create_Board() {
