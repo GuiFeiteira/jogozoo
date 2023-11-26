@@ -12,7 +12,7 @@ let gridSize = 5;
 
 let showPopup = false;
 
-let scene = 2;
+let scene = 0;
 let popup;
 let userServ;
 function setup() {
@@ -32,11 +32,11 @@ function draw() {
   }
   if (scene === 1) {
     if (!telaSelecaoGenero) {
-      // Se não estiver na tela de seleção de personagem, vá para a cena de seleção
+      
       telaSelecaoGenero = true;
       desenharTelaSelecaoGenero();
     } else {
-      // Se já estiver na tela de seleção, vá para a cena do jogo
+      
       console.log("Chamando gameScene");
       draw_Board();
       gameScene();
@@ -71,7 +71,7 @@ function mousePressed() {
     for (let i = 0; i < board.length; i++) {
       for (let j = 0; j < board[i].length; j++) {
         if (board[i][j].click_Tile(mouseX, mouseY)) {
-          //console.log(i,j)
+          console.log(i,j)
           if ((i === 1 && j === 4) || (i === 3 && j === 4)) {
             console.log("Amazingggg");
             popup.show();
