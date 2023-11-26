@@ -34,7 +34,6 @@ function encontrarCativeiros() {
 
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[i].length; j++) {
-      // Verifica se há um cativeiro na posição atual da grade
       if (board[i][j].cativeiro) {
         cativeirosEncontrados.push(board[i][j].cativeiro);
       }

@@ -32,11 +32,11 @@ function draw() {
   }
   if (scene === 1) {
     if (!telaSelecaoGenero) {
-      // Se não estiver na tela de seleção de personagem, vá para a cena de seleção
+      
       telaSelecaoGenero = true;
       desenharTelaSelecaoGenero();
     } else {
-      // Se já estiver na tela de seleção, vá para a cena do jogo
+      
       console.log("Chamando gameScene");
       draw_Board();
       gameScene();

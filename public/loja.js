@@ -50,36 +50,38 @@ class Loja {
     if (categoria === "Animais") {
       this.barraX = this.barraLateralX;
       this.barraY = height - 110;
-
+  
       // Desenhe a barra
       fill(200);
       rect(this.barraX, this.barraY, width - this.barraLateralX * 2, 150, 10);
-
+  
       let espacamento = 30;
-
+  
       for (let i = 0; i < this.produtos["Animais"].length; i++) {
         let produto = this.produtos["Animais"][i];
-
+  
         let produtoX = this.barraX + 10 + (80 + espacamento) * i;
         let produtoY = this.barraY + 10;
-
+  
         fill(255);
         rect(produtoX, produtoY, 90, 90, 10);
-
+  
         image(produto.imagem, produtoX + 10, produtoY + 10, 60, 60);
-
+  
         fill(0);
         text(`Preço: ${produto.preco}`, produtoX + 50, produtoY + 80);
+  
 
-        // Verifique se o mouse está sobre o produto
         if (
           mouseX > produtoX && mouseX < produtoX + 80 && mouseY > produtoY && mouseY < produtoY + 80
         ) {
           this.produtoSelecionado = produto;
+          return; 
         }
       }
     }
   }
+  
 
   clicar(mx, my) {
     for (let i = 0; i < this.itens.length; i++) {
@@ -97,8 +99,12 @@ class Loja {
         this.barraAberta = true;
       }
     }
+    
     if (this.produtoSelecionado !== null) {
       console.log("Comprou o produto:", this.produtoSelecionado.nome);
+      if (this.produtoSelecionado.nome !== undefined) {
+        console.log("Animal selecionado:", this.produtoSelecionado.nome);
+      }
     }
 
     if (this.barraAberta) {
