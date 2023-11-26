@@ -88,33 +88,33 @@ function loginScene() {
 
   noStroke();
   fill(255, 190);
-  rect(windowWidth / 2 - 120, windowHeight / 2 - 150, 400, 400);
+  rect(windowWidth / 2 - 150, windowHeight / 2 - 150, 400, 400);
 
   // Campos de entrada (Input fields)
   fill(0);
-  text("Nome", canvasCenterX, canvasCenterY - 53);
+  text("Nome", canvasCenterX -25, canvasCenterY - 45);
   nomeInput = createInput();
-  nomeInput.position(canvasCenterX, canvasCenterY - 50);
+  nomeInput.position(canvasCenterX -25, canvasCenterY - 42);
   nomeInput.style("text-align", "center");
 
   fill(0);
-  text("Email", canvasCenterX, canvasCenterY - 2);
+  text("Email", canvasCenterX -25 , canvasCenterY - 2);
   emailInput = createInput();
-  emailInput.position(canvasCenterX, canvasCenterY);
+  emailInput.position(canvasCenterX -25 , canvasCenterY);
   emailInput.style("text-align", "center");
 
   fill(0);
-  text("Password", canvasCenterX, canvasCenterY + 48);
+  text("Password", canvasCenterX -25, canvasCenterY + 48);
   senhaInput = createInput();
-  senhaInput.position(canvasCenterX, canvasCenterY + 50);
+  senhaInput.position(canvasCenterX -25, canvasCenterY + 50);
   senhaInput.style("text-align", "center");
 
-  loginBtn = createButton("Login");
-  loginBtn.position(canvasCenterX + 100, canvasCenterY + 100);
+  loginBtn = createButton("  Login   ");
+  loginBtn.position(canvasCenterX -25 + 100, canvasCenterY + 100);
   loginBtn.mousePressed(login);
 
   registarButton = createButton("Registar");
-  registarButton.position(canvasCenterX, canvasCenterY + 100);
+  registarButton.position(canvasCenterX -25, canvasCenterY + 100);
   registarButton.mousePressed(registar);
 
   pop();

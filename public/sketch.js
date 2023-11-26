@@ -12,7 +12,7 @@ let gridSize = 5;
 
 let showPopup = false;
 
-let scene = 2;
+let scene = 0;
 let popup;
 let userServ;
 function setup() {
@@ -71,7 +71,7 @@ function mousePressed() {
     for (let i = 0; i < board.length; i++) {
       for (let j = 0; j < board[i].length; j++) {
         if (board[i][j].click_Tile(mouseX, mouseY)) {
-          //console.log(i,j)
+          console.log(i,j)
           if ((i === 1 && j === 4) || (i === 3 && j === 4)) {
             console.log("Amazingggg");
             popup.show();
