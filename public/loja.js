@@ -47,6 +47,7 @@ class Loja {
   }
 
   mostrarProdutosCategoria(categoria) {
+    
     if (categoria === "Animais") {
       this.barraX = this.barraLateralX;
       this.barraY = height - 110;
@@ -70,20 +71,22 @@ class Loja {
   
         fill(0);
         text(`Preço: ${produto.preco}`, produtoX + 50, produtoY + 80);
-  
 
         if (
           mouseX > produtoX && mouseX < produtoX + 80 && mouseY > produtoY && mouseY < produtoY + 80
         ) {
+          
           this.produtoSelecionado = produto;
-          return; 
+          console.log(produto)
+          
         }
       }
     }
   }
   
-
   clicar(mx, my) {
+    console.log("barraAberta:", this.barraAberta);
+  
     for (let i = 0; i < this.itens.length; i++) {
       let x = this.barraLateralX;
       let y = i * (this.botaoAltura + 10) + 150;
@@ -97,16 +100,13 @@ class Loja {
         console.log("Clicou em " + this.itens[i]);
         this.mostrarProdutosCategoria(categoria);
         this.barraAberta = true;
-      }
-    }
-    
-    if (this.produtoSelecionado !== null) {
-      console.log("Comprou o produto:", this.produtoSelecionado.nome);
-      if (this.produtoSelecionado.nome !== undefined) {
-        console.log("Animal selecionado:", this.produtoSelecionado.nome);
-      }
-    }
 
+        
+      }
+    }
+  
+
+  
     if (this.barraAberta) {
       let botaoFecharX = this.barraX + width - this.barraLateralX * 2 - 30;
       let botaoFecharY = this.barraY + 10;
@@ -114,7 +114,7 @@ class Loja {
       rect(botaoFecharX, botaoFecharY, 20, 20, 5);
       fill(0);
       text("X", botaoFecharX + 10, botaoFecharY + 10);
-
+  
       if (
         mouseX > botaoFecharX &&
         mouseX < botaoFecharX + 20 &&
@@ -127,4 +127,5 @@ class Loja {
       }
     }
   }
+  
 }
