@@ -12,7 +12,7 @@ let gridSize = 5;
 
 let showPopup = false;
 
-let scene = 2;
+let scene = 0;
 let popup;
 let userServ;
 function setup() {
@@ -36,10 +36,8 @@ function draw() {
       telaSelecaoGenero = true;
       desenharTelaSelecaoGenero();
     } else {
-      
-      console.log("Chamando gameScene");
-      draw_Board();
-      gameScene();
+      scene = 2
+
     }
   } else if (scene === 2) {
     clear();
@@ -75,16 +73,18 @@ function mousePressed() {
           console.log(i, j);
           if ((i === 1 && j === 4) || (i === 3 && j === 4)) {
             console.log("Amazingggg");
+
             popup.show();
 
           }
         }
       }
     }
+    loja.clicar(mouseX, mouseY);
+    //loja.mostrarProdutosCategoria("Animais");
   }
 
-  loja.clicar(mouseX, mouseY);
-  loja.mostrarProdutosCategoria("Animais",mouseX,mouseY);
+
 }
 
 function preload() {
