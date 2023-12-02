@@ -30,6 +30,7 @@ class Loja {
     this.produtoSelecionado = null;
     this.barraX = 0;
     this.barraY = 0;
+    this.ultimaCategoriaClicada = null;
   }
 
   mostrar() {
@@ -46,6 +47,37 @@ class Loja {
     }
   }
   
+  comprarProduto() {
+    if (this.produtoSelecionado) {
+      if (!this.produtoSelecionado.comprado && dinheiro >= this.produtoSelecionado.preco) {
+        dinheiro -= this.produtoSelecionado.preco;
+        atualizarDinheiro(dinheiro);
+        console.log(`Produto comprado: ${this.produtoSelecionado.nome}`);
+        // Marcar o produto como comprado
+        this.produtoSelecionado.comprado = true;
+        this.mostrarProdutosCategoria(this.ultimaCategoriaClicada);
+      } else {
+        console.log("Não é possível comprar o produto.");
+      }
+    } else {
+      console.log("Nenhum produto selecionado para compra.");
+    }
+  }
+
+  removerProduto(categoria, produtoNome) {
+    // Verifique se a categoria existe antes de tentar acessar a lista de produtos
+
+        // Encontre o índice do produto na lista
+        console.log('comecar  ')
+        const index = this.produtos[categoria].findIndex((produto) => produto.nome === produtoNome);
+        // Remova o produto da lista
+        this.produtos[categoria].splice(index, 1);
+        // Atualize a exibição da categoria para refletir a remoção do produto
+        this.mostrarProdutosCategoria(categoria);
+
+}
+
+
 
   mostrarProdutosCategoria(categoria) {
     
@@ -72,8 +104,15 @@ class Loja {
 
         let produtoX = this.barraX + 10 + (80 + espacamento) * i;
         let produtoY = this.barraY + 10;
-  
-        fill(255);
+        if (produto.comprado) {
+          
+          fill(100); 
+        } else {
+          
+          fill(255);
+        }
+
+        
         rect(produtoX, produtoY, 90, 90, 10);
 
         fill(0);
@@ -92,6 +131,7 @@ class Loja {
 
           this.produtoSelecionado = produto;
           console.log(produto)
+          
 
         }
       }
@@ -103,6 +143,8 @@ class Loja {
   clicar(mx, my) {
     console.log("barraAberta:", this.barraAberta);
 
+    let categoriaClicada = null;
+
     for (let i = 0; i < this.itens.length; i++) {
       let x = this.barraLateralX;
       let y = i * (this.botaoAltura + 10) + 150;
@@ -112,10 +154,11 @@ class Loja {
         my > y &&
         my < y + this.botaoAltura
       ) {
-        var categoria = this.itens[i];
+        categoriaClicada = this.itens[i];
         console.log("Clicou em " + this.itens[i]);
-        this.mostrarProdutosCategoria(categoria);
+        this.mostrarProdutosCategoria(categoriaClicada);
         this.barraAberta = true;
+        this.ultimaCategoriaClicada = categoriaClicada; // Atualiza a última categoria clicada
       }
     }
 
@@ -135,12 +178,14 @@ class Loja {
         this.barraAberta = false;
         console.log("Clicou em Fechar");
         loop();
-      }else{
-        
-        this.mostrarProdutosCategoria('Animais')
+      } else {
+        // Mostra os produtos da última categoria clicada
+        this.mostrarProdutosCategoria(this.ultimaCategoriaClicada);
+        this.comprarProduto();
       }
     }
   }
+  
 
   
 }
