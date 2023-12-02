@@ -12,7 +12,7 @@ let gridSize = 5;
 
 let showPopup = false;
 
-let scene = 2;
+let scene = 0;
 let popup;
 let userServ;
 function setup() {

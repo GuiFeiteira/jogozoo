@@ -10,21 +10,9 @@ class Loja {
       Edificios: ["Loja de Souvenirs", "Loja de Comida", "Loja de Brinquedos"],
       Decorações: ["Árvore Decorativa", "Fonte", "Banco de Jardim"],
       Animais: [
-        {
-          nome: "Leão",
-          preco: 100,
-          imagem: loadImage("./recursos/lion.png"),
-        },
-        {
-          nome: "Elefante",
-          preco: 150,
-          imagem: loadImage("./recursos/elephant.png"),
-        },
-        {
-          nome: "Girafa",
-          preco: 120,
-          imagem: loadImage("./recursos/giraffe.png"),
-        },
+        new Animal("Leão", 100, loadImage("./recursos/lion.png")),
+        new Animal("Elefante", 150, loadImage("./recursos/elephant.png")),
+        new Animal("Girafa", 120, loadImage("./recursos/giraffe.png")),
       ],
     };
     this.produtoSelecionado = null;
@@ -56,6 +44,8 @@ class Loja {
         // Marcar o produto como comprado
         this.produtoSelecionado.comprado = true;
         this.mostrarProdutosCategoria(this.ultimaCategoriaClicada);
+        this.adicionarAnimalAoCativeiro(this.produtoSelecionado);
+
       } else {
         console.log("Não é possível comprar o produto.");
       }
@@ -66,9 +56,6 @@ class Loja {
 
   removerProduto(categoria, produtoNome) {
     // Verifique se a categoria existe antes de tentar acessar a lista de produtos
-
-        // Encontre o índice do produto na lista
-        console.log('comecar  ')
         const index = this.produtos[categoria].findIndex((produto) => produto.nome === produtoNome);
         // Remova o produto da lista
         this.produtos[categoria].splice(index, 1);
@@ -105,7 +92,6 @@ class Loja {
         let produtoX = this.barraX + 10 + (80 + espacamento) * i;
         let produtoY = this.barraY + 10;
         if (produto.comprado) {
-          
           fill(100); 
         } else {
           
@@ -185,7 +171,21 @@ class Loja {
       }
     }
   }
-  
 
-  
+  adicionarAnimalAoCativeiro(animal) {
+    // Encontrar cativeiros do jogador (pode ser necessário adaptar esta lógica com base no seu código)
+    const cativeirosDoJogador = encontrarCativeiros();
+  console.log(cativeirosDoJogador)
+    // Adicionar o animal ao primeiro cativeiro disponível
+    if (cativeirosDoJogador.length > 0) {
+      cativeirosDoJogador[0].adicionarAnimal(animal);
+      cativeirosDoJogador[0].desenharCativeiro();
+      loop()
+
+      console.log("Animal adicionado ao cativeiro com sucesso.");
+      
+    }
+  }
+
+ 
 }
