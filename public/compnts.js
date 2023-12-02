@@ -43,4 +43,6 @@ function desenharQuadrado() {
 
 function atualizarDinheiro(novoValor) {
   dinheiro = novoValor;
+  desenharBarraDoTopo();
+
 }

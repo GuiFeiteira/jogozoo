@@ -12,7 +12,7 @@ let gridSize = 5;
 
 let showPopup = false;
 
-let scene = 0;
+let scene = 2;
 let popup;
 let userServ;
 function setup() {
@@ -84,7 +84,7 @@ function mousePressed() {
     //loja.mostrarProdutosCategoria("Animais");
   }
 
-
+noLoop()
 }
 
 function preload() {
