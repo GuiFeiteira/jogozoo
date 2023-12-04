@@ -46,6 +46,7 @@ function draw() {
     gameScene();
     loja.mostrar();
     
+    
   }
   console.log(`Cena Atual: ${scene}`);
   noLoop();
@@ -63,7 +64,7 @@ function mousePressed() {
 
     if (generoSelecionado !== "") {
       scene = 2;
-      loop();
+      //loop();
     }
   }
   if (scene === 2) {
@@ -81,7 +82,7 @@ function mousePressed() {
       }
     }
     loja.clicar(mouseX, mouseY);
-    //loja.mostrarProdutosCategoria("Animais");
+   
   }
 
 noLoop()
