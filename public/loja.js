@@ -6,7 +6,12 @@ class Loja {
     this.barraLateralX = 20;
     this.barraAberta = false;
     this.produtos = {
-      Cativeiros: ["Cativeiro Pequeno", "Cativeiro Médio", "Cativeiro Grande"],
+      Cativeiros: [
+        new Cativeiro_Loja("Cativeiro Normal", 200, loadImage("./recursos/fence.png")),
+        new Cativeiro_Loja("Cativeiro Normal2", 200 +50, loadImage("./recursos/fence.png")),
+        "Cativeiro Médio",
+        "Cativeiro Grande",
+      ],
       Edificios: ["Loja de Souvenirs", "Loja de Comida", "Loja de Brinquedos"],
       Decorações: ["Árvore Decorativa", "Fonte", "Banco de Jardim"],
       Animais: [
@@ -34,18 +39,27 @@ class Loja {
       text(this.itens[i], x + this.botaoLargura / 2, y + this.botaoAltura / 2);
     }
   }
-  
+
   comprarProduto() {
     if (this.produtoSelecionado) {
-      if (!this.produtoSelecionado.comprado && dinheiro >= this.produtoSelecionado.preco) {
+      if (
+        !this.produtoSelecionado.comprado &&
+        dinheiro >= this.produtoSelecionado.preco
+      ) {
         dinheiro -= this.produtoSelecionado.preco;
         atualizarDinheiro(dinheiro);
         console.log(`Produto comprado: ${this.produtoSelecionado.nome}`);
-        // Marcar o produto como comprado
-        this.produtoSelecionado.comprado = true;
-        this.mostrarProdutosCategoria(this.ultimaCategoriaClicada);
-        this.adicionarAnimalAoCativeiro(this.produtoSelecionado);
 
+        this.produtoSelecionado.comprado = true;
+        if (this.produtoSelecionado instanceof Animal) {
+          // Se o produto selecionado for um animal, adicione ao cativeiro
+          adicionarAnimalAoCativeiro(this.produtoSelecionado);
+          this.barraAberta = false;
+          loop();
+        } else if (this.produtoSelecionado instanceof Cativeiro_Loja) {
+          this.aguardandoClique = true;
+          loop()
+        }
       } else {
         console.log("Não é possível comprar o produto.");
       }
@@ -54,30 +68,18 @@ class Loja {
     }
   }
 
-  removerProduto(categoria, produtoNome) {
-    // Verifique se a categoria existe antes de tentar acessar a lista de produtos
-        const index = this.produtos[categoria].findIndex((produto) => produto.nome === produtoNome);
-        // Remova o produto da lista
-        this.produtos[categoria].splice(index, 1);
-        // Atualize a exibição da categoria para refletir a remoção do produto
-        this.mostrarProdutosCategoria(categoria);
-
-}
-
-
-
+  
   mostrarProdutosCategoria(categoria) {
-    
     if (categoria !== null) {
       this.barraX = this.barraLateralX;
       this.barraY = height - 110;
-  
+
       // Desenhe a barra
       fill(200);
       rect(this.barraX, this.barraY, width - this.barraLateralX * 2, 150, 10);
-  
+
       let espacamento = 30;
-  
+
       this.produtoSelecionado = null;
 
       // Verificar a categoria atual e exibir os produtos correspondentes
@@ -87,45 +89,40 @@ class Loja {
         let produto = produtos[i];
         let botaoFecharX = this.barraX + width - this.barraLateralX * 2 - 30;
         let botaoFecharY = this.barraY + 10;
-  
 
         let produtoX = this.barraX + 10 + (80 + espacamento) * i;
         let produtoY = this.barraY + 10;
         if (produto.comprado) {
-          fill(100); 
+          fill(100);
         } else {
-          
           fill(255);
         }
 
-        
         rect(produtoX, produtoY, 90, 90, 10);
 
         fill(0);
         text("X", botaoFecharX + 10, botaoFecharY + 10);
-  
+
         if (produto.imagem) {
-          image(produto.imagem, produtoX + 10, produtoY + 10, 60, 60);
+          image(produto.imagem, produtoX + 17, produtoY + 10, 60, 60);
         }
-  
+
         fill(0);
         text(`Preço: ${produto.preco}`, produtoX + 50, produtoY + 80);
 
         if (
-          mouseX > produtoX && mouseX < produtoX + 80 && mouseY > produtoY && mouseY < produtoY + 80
+          mouseX > produtoX &&
+          mouseX < produtoX + 80 &&
+          mouseY > produtoY &&
+          mouseY < produtoY + 80
         ) {
-
           this.produtoSelecionado = produto;
-          console.log(produto)
-          
-
+          console.log(produto);
         }
       }
     }
-    
-  } 
-  
-  
+  }
+
   clicar(mx, my) {
     console.log("barraAberta:", this.barraAberta);
 
@@ -142,7 +139,6 @@ class Loja {
       ) {
         categoriaClicada = this.itens[i];
         console.log("Clicou em " + this.itens[i]);
-        this.mostrarProdutosCategoria(categoriaClicada);
         this.barraAberta = true;
         this.ultimaCategoriaClicada = categoriaClicada; // Atualiza a última categoria clicada
       }
@@ -165,27 +161,21 @@ class Loja {
         console.log("Clicou em Fechar");
         loop();
       } else {
-        // Mostra os produtos da última categoria clicada
         this.mostrarProdutosCategoria(this.ultimaCategoriaClicada);
-        this.comprarProduto();
+        if (this.aguardandoClique) {
+          adicionarCativeiroComprado(mx, my);
+          
+          this.aguardandoClique = false; 
+          this.barraAberta = false;
+          
+          loop();
+          
+        } else {
+          this.comprarProduto();
+          
+          
+        }
       }
     }
   }
-
-  adicionarAnimalAoCativeiro(animal) {
-    // Encontrar cativeiros do jogador (pode ser necessário adaptar esta lógica com base no seu código)
-    const cativeirosDoJogador = encontrarCativeiros();
-  console.log(cativeirosDoJogador)
-    // Adicionar o animal ao primeiro cativeiro disponível
-    if (cativeirosDoJogador.length > 0) {
-      cativeirosDoJogador[0].adicionarAnimal(animal);
-      cativeirosDoJogador[0].desenharCativeiro();
-      loop()
-
-      console.log("Animal adicionado ao cativeiro com sucesso.");
-      
-    }
-  }
-
- 
 }
