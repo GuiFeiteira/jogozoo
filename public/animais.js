@@ -6,4 +6,4 @@ class Animal {
       this.comprado = false; 
     }
   }
-  
+

@@ -13,7 +13,7 @@ class Loja {
         "Cativeiro Grande",
       ],
       Edificios: ["Loja de Souvenirs", "Loja de Comida", "Loja de Brinquedos"],
-      Decorações: ["Árvore Decorativa", "Fonte", "Banco de Jardim"],
+      Decorações: [new Caminho('caminho', 50), "Fonte", "Banco de Jardim"],
       Animais: [
         new Animal("Leão", 100, loadImage("./recursos/lion.png")),
         new Animal("Elefante", 150, loadImage("./recursos/elephant.png")),

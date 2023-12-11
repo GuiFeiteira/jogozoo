@@ -8,16 +8,16 @@ let telaSelecaoGenero = false;
 let quadradoVisivel = true;
 
 let board = [];
-let gridSize = 5;
+let gridSize = 18;
 
 let showPopup = false;
 
-let scene = 2;
+let scene = 0;
 let popup;
 let userServ;
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  squareSize = min(width, height) / gridSize;
+  squareSize = min(width, height) / gridSize ;
   popup = new Popup(width / 2, height / 2, width * 0.6, height * 0.5);
   loja = new Loja();
 
@@ -40,7 +40,6 @@ function draw() {
 
     }
   } else if (scene === 2) {
-    clear();
     console.log("Chamando gameScene2");
     draw_Board();
     gameScene();
@@ -96,4 +95,5 @@ function preload() {
   imgMoney = loadImage("./recursos/money.png");
   bilhImagem = loadImage("./recursos/booth.png");
   loja= loadImage('./recursos/loja.png')
+  azulejo = loadImage('./recursos/paving.png')
 }
