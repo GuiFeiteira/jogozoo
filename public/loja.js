@@ -5,6 +5,7 @@ class Loja {
     this.botaoAltura = 40;
     this.barraLateralX = 20;
     this.barraAberta = false;
+      
     this.produtos = {
       Cativeiros: [
         new Cativeiro_Loja("Cativeiro Normal", 200, loadImage("./recursos/fence.png")),
@@ -13,7 +14,7 @@ class Loja {
         "Cativeiro Grande",
       ],
       Edificios: ["Loja de Souvenirs", "Loja de Comida", "Loja de Brinquedos"],
-      Decorações: [new Caminho('caminho', 50), "Fonte", "Banco de Jardim"],
+      Decorações: [new Caminho('caminho', 50, azulejo), "Fonte", "Banco de Jardim"],
       Animais: [
         new Animal("Leão", 100, loadImage("./recursos/lion.png")),
         new Animal("Elefante", 150, loadImage("./recursos/elephant.png")),
@@ -58,6 +59,11 @@ class Loja {
           loop();
         } else if (this.produtoSelecionado instanceof Cativeiro_Loja) {
           this.aguardandoClique = true;
+          loop()
+        }else if (this.produtoSelecionado instanceof Caminho) {
+          this.aguardandoClique2 = true;
+          this.produtoSelecionado.comprado = false;
+          this.produtoSelecionado.preco = this.produtoSelecionado.preco + (this.produtoSelecionado.preco * 0.2)
           loop()
         }
       } else {
@@ -169,6 +175,14 @@ class Loja {
           this.barraAberta = false;
           
           loop();
+          
+        }else if (this.aguardandoClique2) {
+          adicionarAzulejo(mx, my, this.produtoSelecionado);
+          this.aguardandoClique2 = false;
+          this.barraAberta = false;
+          
+          loop();
+
           
         } else {
           this.comprarProduto();

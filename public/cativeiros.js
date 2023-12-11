@@ -1,8 +1,9 @@
 class Cativeiro {
-  constructor() {
+  constructor(imagem) {
     
     this.cercaImagem = loadImage("./recursos/fence.png");
     this.animais = [];
+    this.imagem = imagem
   }
   desenharCativeiro(x, y, tamanho) {
     // Calcular as coordenadas para desenhar a cerca uma vez

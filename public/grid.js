@@ -7,21 +7,15 @@ class Tile {
     this.s = s;
     this.cativeiro = null;
     this.bilheteira = null;
-    this.azulejo = false; 
-
+    this.azulejo = false;
   }
 
   draw_Tile() {
     noFill();
-    stroke(BOLD)
+    stroke(BOLD);
     square(this.x, this.y, this.s);
     if (this.azulejo) {
-      noStroke()
-      fill(color(200,230)); // Cor do hexágono especial
-      let centerX = this.x + this.s / 2;
-      let centerY = this.y + this.s / 2;
-
-      hexagon(centerX, centerY, this.s / 2 * 0.9);
+      image(azulejo, this.x, this.y, this.s, this.s);
     }
   }
 
@@ -38,10 +32,7 @@ class Tile {
 
   click_Tile(x, y) {
     return (
-      x > this.x &&
-      x < this.x + this.s &&
-      y > this.y &&
-      y < this.y + this.s
+      x > this.x && x < this.x + this.s && y > this.y && y < this.y + this.s
     );
   }
 }
@@ -54,12 +45,10 @@ function draw_Board() {
       board[i][j].draw_Bilheteira();
     }
   }
-
-
 }
 
 function create_Board() {
-  let initialPosX = ((width - gridSize * squareSize) -100) / 2;
+  let initialPosX = (width - gridSize * squareSize - 100) / 2;
   let initialPosY = (height - gridSize * squareSize) / 2;
 
   for (let i = 0; i < gridSize; i++) {
@@ -77,9 +66,6 @@ function create_Board() {
       ) {
         board[i][j].azulejo = true;
       }
-      
-
-
     }
   }
 }

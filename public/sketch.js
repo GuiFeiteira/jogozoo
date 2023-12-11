@@ -6,6 +6,7 @@ let registarButton;
 let generoSelecionado = "";
 let telaSelecaoGenero = false;
 let quadradoVisivel = true;
+let azulejo;
 
 let board = [];
 let gridSize = 18;
