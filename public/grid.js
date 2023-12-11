@@ -7,12 +7,22 @@ class Tile {
     this.s = s;
     this.cativeiro = null;
     this.bilheteira = null;
+    this.azulejo = false; 
+
   }
 
   draw_Tile() {
     noFill();
     stroke(BOLD)
     square(this.x, this.y, this.s);
+    if (this.azulejo) {
+      noStroke()
+      fill(color(200,230)); // Cor do hexágono especial
+      let centerX = this.x + this.s / 2;
+      let centerY = this.y + this.s / 2;
+
+      hexagon(centerX, centerY, this.s / 2 * 0.9);
+    }
   }
 
   draw_Cativeiro() {
@@ -49,7 +59,7 @@ function draw_Board() {
 }
 
 function create_Board() {
-  let initialPosX = (width - gridSize * squareSize) / 2;
+  let initialPosX = ((width - gridSize * squareSize) -100) / 2;
   let initialPosY = (height - gridSize * squareSize) / 2;
 
   for (let i = 0; i < gridSize; i++) {
@@ -58,6 +68,15 @@ function create_Board() {
       let x = initialPosX + i * squareSize;
       let y = initialPosY + j * squareSize;
       board[i][j] = new Tile(x, y, i, j, squareSize);
+      if (
+        (i === 12 && j === 13) ||
+        (i === 11 && j === 13) ||
+        (i === 13 && j === 13) ||
+        (i === 12 && j === 14)
+        // Adicione mais condições conforme necessário
+      ) {
+        board[i][j].azulejo = true;
+      }
       
 
 

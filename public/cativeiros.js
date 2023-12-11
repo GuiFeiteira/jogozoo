@@ -4,30 +4,30 @@ class Cativeiro {
     this.cercaImagem = loadImage("./recursos/fence.png");
     this.animais = [];
   }
-
   desenharCativeiro(x, y, tamanho) {
-    image(this.cercaImagem, x, y, tamanho, tamanho);
-
+    // Calcular as coordenadas para desenhar a cerca uma vez
+    let offsetX = x;
+    let offsetY = y;
     for (let i = 0; i < this.animais.length; i++) {
-        let offsetX = (i * tamanho) / 4;
-        let offsetY = 0;
-        if (this.animais[i]) {
-          if (this.animais[i].imagem) {
-              image(
-                  this.animais[i].imagem,
-                  x + offsetX,
-                  y + offsetY +5,
-                  tamanho / 2,
-                  tamanho / 2
-              );
-          } else {
-              console.log("A propriedade imagem do animal é undefined.");
-          }
+      let animal = this.animais[i];
+      if (animal && animal.imagem) {
+        // Calcular as coordenadas do animal para cada posição no array de animais
+        let animalX = offsetX + tamanho / 2 + (i % 2) * tamanho / 2;
+        let animalY = offsetY + tamanho / 2 + Math.floor(i / 2) * tamanho / 2;
+        // Calcular as coordenadas do tile do cativeiro ocupado pelo animal
+        let tileX = Math.floor((animalX - offsetX) / (tamanho ));
+        let tileY = Math.floor((animalY - offsetY) / (tamanho ));
+        // Verificar se o animal está dentro do cativeiro antes de desenhá-lo
+        if (tileX >= 0 && tileX < 2 && tileY >= 0 && tileY < 2) {
+          image(animal.imagem, animalX, animalY, tamanho , tamanho );
+        }
       } else {
-          console.log("O objeto Animal no cativeiro é undefined.");
+        console.log("A propriedade imagem do animal é undefined.");
       }
     }
-}
+    image(this.cercaImagem, offsetX, offsetY, tamanho * 2, tamanho * 2);
+
+  }
 
 
   adicionarAnimal(animal) {
@@ -96,13 +96,15 @@ function adicionarCativeiroComprado(mx, my) {
   }
 
   if (tileClicado) {
+    const { i, j } = tileClicado;
 
-    if (!board[tileClicado.i][tileClicado.j].cativeiro) {
+    // Verifique se não há nada no tile
+    if (!board[i][j].cativeiro)  {
+      
+          board[i][j].cativeiro = new Cativeiro();
 
-      board[tileClicado.i][tileClicado.j].cativeiro = new Cativeiro();
-      
-      console.log(`Cativeiro adicionado em (${tileClicado.i}, ${tileClicado.j}).`);
-      
+
+      console.log(`Cativeiro adicionado em (${i}, ${j}).`);
     } else {
       console.log(`Já existe algo no tile (${tileClicado.i}, ${tileClicado.j}).`);
     }
@@ -110,5 +112,4 @@ function adicionarCativeiroComprado(mx, my) {
     console.log('Nenhum tile clicado.');
   }
 }
-
 
