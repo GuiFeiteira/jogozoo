@@ -1,9 +1,8 @@
 class Cativeiro {
-  constructor(imagem) {
+  constructor(fense) {
     
-    this.cercaImagem = loadImage("./recursos/fence.png");
+    this.cercaImagem = fense;
     this.animais = [];
-    this.imagem = imagem
   }
   desenharCativeiro(x, y, tamanho) {
     // Calcular as coordenadas para desenhar a cerca uma vez
@@ -102,7 +101,8 @@ function adicionarCativeiroComprado(mx, my) {
     // Verifique se não há nada no tile
     if (!board[i][j].cativeiro)  {
       
-          board[i][j].cativeiro = new Cativeiro();
+          board[i][j].cativeiro = new Cativeiro(fence);
+          adicionarConstrucaoAoUsuario(i, j, "cativeiro");
 
 
       console.log(`Cativeiro adicionado em (${i}, ${j}).`);

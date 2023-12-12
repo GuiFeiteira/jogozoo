@@ -8,8 +8,8 @@ class Loja {
       
     this.produtos = {
       Cativeiros: [
-        new Cativeiro_Loja("Cativeiro Normal", 200, loadImage("./recursos/fence.png")),
-        new Cativeiro_Loja("Cativeiro Normal2", 200 +50, loadImage("./recursos/fence.png")),
+        new Cativeiro_Loja("Cativeiro Normal", 200, fence),
+        new Cativeiro_Loja("Cativeiro Normal2", 200 +50, fence),
         "Cativeiro Médio",
         "Cativeiro Grande",
       ],
@@ -51,9 +51,10 @@ class Loja {
         atualizarDinheiro(dinheiro);
         console.log(`Produto comprado: ${this.produtoSelecionado.nome}`);
 
+
         this.produtoSelecionado.comprado = true;
         if (this.produtoSelecionado instanceof Animal) {
-          // Se o produto selecionado for um animal, adicione ao cativeiro
+          
           adicionarAnimalAoCativeiro(this.produtoSelecionado);
           this.barraAberta = false;
           loop();
@@ -169,6 +170,7 @@ class Loja {
       } else {
         this.mostrarProdutosCategoria(this.ultimaCategoriaClicada);
         if (this.aguardandoClique) {
+          
           adicionarCativeiroComprado(mx, my);
           
           this.aguardandoClique = false; 
@@ -186,6 +188,7 @@ class Loja {
           
         } else {
           this.comprarProduto();
+          
           
           
         }

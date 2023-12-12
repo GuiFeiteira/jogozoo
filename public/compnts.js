@@ -46,3 +46,22 @@ function atualizarDinheiro(novoValor) {
   desenharBarraDoTopo();
 
 }
+
+
+
+
+function adicionarConstrucaoAoUsuario(tileX, tileY, tipoConstrucao) {
+
+  let userId = userServ[0].id; // ID do usuário logado
+
+  let data = {
+    user_id: userId,
+    tile_x: tileX,
+    tile_y: tileY,
+    building_type: tipoConstrucao,
+  };
+
+  httpPost("/insertTile", data, "json", (respostaServer) => {
+    console.log(respostaServer);
+  });
+}
