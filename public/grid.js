@@ -5,6 +5,8 @@ class Tile {
     this.tx = tx;
     this.ty = ty;
     this.s = s;
+
+    this.ocupado = false;
     this.cativeiro = null;
     this.bilheteira = null;
     this.azulejo = false;
@@ -34,6 +36,13 @@ class Tile {
     return (
       x > this.x && x < this.x + this.s && y > this.y && y < this.y + this.s
     );
+  }
+  setOcupado(estado) {
+    this.ocupado = estado;
+  }
+
+  isTileOcupado() {
+    return this.ocupado;
   }
 }
 

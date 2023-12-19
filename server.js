@@ -66,7 +66,7 @@ app.post("/registro", (req, res) => {
           let initMoney =
             "UPDATE utilizadores SET dinheiro = 500 WHERE nome = '" +
             nome +
-            "'";
+            ")";
           dbase.query(initMoney, (err, result) => {
             if (err) throw err;
             console.log(`Dinheiro inicializado para ${nome}`);
@@ -109,23 +109,23 @@ app.post("/login", (req, res) => {
 });
 
 app.post("/updateMoney", (req, res) => {
-  const nome = req.body.nome;
+  const userId = req.body.user_id;
   const novoDinheiro = req.body.novoDinheiro;
 
   let updateMoney =
     "UPDATE utilizadores SET dinheiro = " +
     novoDinheiro +
-    " WHERE nome = '" +
-    nome +
+    " WHERE id = '" +
+    userId +
     "'";
   dbase.query(updateMoney, (err, result) => {
+    
     if (err) throw err;
-    res.send("Dinheiro atualizado com sucesso");
+    res.send(result);
   });
 });
 
-app.post('/insertTile', (req, res) => {
-
+app.post("/insertTile", (req, res) => {
   console.log(req.body);
 
   let userId = req.body.user_id;
@@ -133,33 +133,35 @@ app.post('/insertTile', (req, res) => {
   let tileY = req.body.tile_y;
   let buildingType = req.body.building_type;
 
-  let sql = "INSERT INTO tiles (`user_id`, `tile_x`, `tile_y`, `building_type`) VALUES ('" + userId + "','" + tileX + "','" + tileY + "','" + buildingType + "');";
+  let sql =
+    "INSERT INTO tiles (`user_id`, `tile_x`, `tile_y`, `building_type`) VALUES ('" +
+    userId +
+    "','" +
+    tileX +
+    "','" +
+    tileY +
+    "','" +
+    buildingType +
+    "');";
 
   dbase.query(sql, (err, result) => {
     if (err) throw err;
 
     res.send(result);
-
   });
-
 });
 
-
-app.get('/getTiles/:id', (req, res) => {
-
+app.get("/getTiles/:id", (req, res) => {
   let userId = req.params.id;
 
-  let sql = "SELECT * FROM tiles WHERE user_id='" + userId + "';"
+  let sql = "SELECT * FROM tiles WHERE user_id='" + userId + "';";
 
   dbase.query(sql, (err, result) => {
     if (err) throw err;
 
     res.send(result);
-
   });
-
 });
-
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

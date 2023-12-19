@@ -30,7 +30,7 @@ function adicionarAzulejo(mx, my, azulejo) {
 
 
       console.log(`Caminho adicionado em (${i}, ${j}).`);
-      adicionarConstrucaoAoUsuario(i, j, "azulejo");
+      adicionarConstrucaoNoServidor(i, j, "azulejo");
       tileClicado = false 
     } else {
       console.log(`Já existe algo no tile (${tileClicado.i}, ${tileClicado.j}).`);

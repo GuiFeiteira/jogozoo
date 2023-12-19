@@ -102,7 +102,7 @@ function adicionarCativeiroComprado(mx, my) {
     if (!board[i][j].cativeiro)  {
       
           board[i][j].cativeiro = new Cativeiro(fence);
-          adicionarConstrucaoAoUsuario(i, j, "cativeiro");
+          adicionarConstrucaoNoServidor(i, j, "cativeiro");
 
 
       console.log(`Cativeiro adicionado em (${i}, ${j}).`);
