@@ -5,15 +5,16 @@ class Loja {
     this.botaoAltura = 40;
     this.barraLateralX = 20;
     this.barraAberta = false;
+      
     this.produtos = {
       Cativeiros: [
-        new Cativeiro_Loja("Cativeiro Normal", 200, loadImage("./recursos/fence.png")),
-        new Cativeiro_Loja("Cativeiro Normal2", 200 +50, loadImage("./recursos/fence.png")),
+        new Cativeiro_Loja("Cativeiro Normal", 200, fence),
+        new Cativeiro_Loja("Cativeiro Normal2", 200 +50, fence),
         "Cativeiro Médio",
         "Cativeiro Grande",
       ],
       Edificios: ["Loja de Souvenirs", "Loja de Comida", "Loja de Brinquedos"],
-      Decorações: [new Caminho('caminho', 50), "Fonte", "Banco de Jardim"],
+      Decorações: [new Caminho('caminho', 50, azulejo), "Fonte", "Banco de Jardim"],
       Animais: [
         new Animal("Leão", 100, loadImage("./recursos/lion.png")),
         new Animal("Elefante", 150, loadImage("./recursos/elephant.png")),
@@ -49,15 +50,22 @@ class Loja {
         dinheiro -= this.produtoSelecionado.preco;
         atualizarDinheiro(dinheiro);
         console.log(`Produto comprado: ${this.produtoSelecionado.nome}`);
+        atualizarDinheiroNoServidor(dinheiro);
+        noLoop()
 
         this.produtoSelecionado.comprado = true;
         if (this.produtoSelecionado instanceof Animal) {
-          // Se o produto selecionado for um animal, adicione ao cativeiro
+          
           adicionarAnimalAoCativeiro(this.produtoSelecionado);
           this.barraAberta = false;
           loop();
         } else if (this.produtoSelecionado instanceof Cativeiro_Loja) {
           this.aguardandoClique = true;
+          loop()
+        }else if (this.produtoSelecionado instanceof Caminho) {
+          this.aguardandoClique2 = true;
+          this.produtoSelecionado.comprado = false;
+          this.produtoSelecionado.preco = this.produtoSelecionado.preco + (this.produtoSelecionado.preco * 0.2)
           loop()
         }
       } else {
@@ -163,6 +171,7 @@ class Loja {
       } else {
         this.mostrarProdutosCategoria(this.ultimaCategoriaClicada);
         if (this.aguardandoClique) {
+          
           adicionarCativeiroComprado(mx, my);
           
           this.aguardandoClique = false; 
@@ -170,8 +179,17 @@ class Loja {
           
           loop();
           
+        }else if (this.aguardandoClique2) {
+          adicionarAzulejo(mx, my, this.produtoSelecionado);
+          this.aguardandoClique2 = false;
+          this.barraAberta = false;
+          
+          loop();
+
+          
         } else {
           this.comprarProduto();
+          
           
           
         }

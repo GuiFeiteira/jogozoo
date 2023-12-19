@@ -4,10 +4,10 @@ function gameScene() {
   background(relva);
   draw_Board();
   desenharQuadrado();
-  desenharBarraDoTopo();
+  desenharBarraDinheiro();
 }
 
-function desenharBarraDoTopo() {
+function desenharBarraDinheiro() {
   // Defina as propriedades da barra no topo
   let barraTopoX = width - 150;
   let barraTopoY = 20;
@@ -43,6 +43,41 @@ function desenharQuadrado() {
 
 function atualizarDinheiro(novoValor) {
   dinheiro = novoValor;
-  desenharBarraDoTopo();
+  desenharBarraDinheiro();
 
+}
+
+
+
+
+function adicionarConstrucaoNoServidor(tileX, tileY, tipoConstrucao) {
+
+  let userId = userServ[0].id; // ID do usuário logado
+
+  let data = {
+    user_id: userId,
+    tile_x: tileX,
+    tile_y: tileY,
+    building_type: tipoConstrucao,
+  };
+
+  httpPost("/insertTile", data, "json", (respostaServer) => {
+    console.log(respostaServer);
+  });
+}
+
+function atualizarDinheiroNoServidor(novoDinheiro) {
+  console.log('MONEY MONEY')
+  let userId = userServ[0].id; // ID do usuário logado
+
+  let data = {
+    user_id: userId,
+    novoDinheiro: novoDinheiro,
+  };
+  console.log(data)
+  // Envia uma solicitação POST para o servidor
+  httpPost("/updateMoney", data, "json",(respostaServer) =>{
+    console.log(respostaServer);
+    // Aqui você pode adicionar lógica adicional se necessário
+  });
 }

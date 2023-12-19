@@ -6,6 +6,7 @@ let registarButton;
 let generoSelecionado = "";
 let telaSelecaoGenero = false;
 let quadradoVisivel = true;
+let azulejo;
 
 let board = [];
 let gridSize = 18;
@@ -96,4 +97,5 @@ function preload() {
   bilhImagem = loadImage("./recursos/booth.png");
   loja= loadImage('./recursos/loja.png')
   azulejo = loadImage('./recursos/paving.png')
+  fence = loadImage('./recursos/fence.png')
 }

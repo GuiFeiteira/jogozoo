@@ -49,30 +49,36 @@ function login() {
         console.log(buildingsPlayer);
         if (buildingsPlayer.length > 0) {
           for (let i = 0; i < buildingsPlayer.length; i++) {
-            let cativeiro = buildingsPlayer[i];
-            if (
-              board[cativeiro.tile_x] &&
-              board[cativeiro.tile_x][cativeiro.tile_y]
-            ) {
-              console.log("A meter alto cativeiro", cativeiro);
-              board[cativeiro.tile_x][cativeiro.tile_y].cativeiro =
-                new Cativeiro();
-              loop();
+            let construcao = buildingsPlayer[i];
+            let x = construcao.tile_x
+            let y = construcao.tile_y
+            if (board[x] && board[x][y]) {
+              console.log("A meter construção", construcao);
+
+              // Verifique o tipo de construção e adicione ao tabuleiro
+              if (construcao.building_type === 'cativeiro') {
+                board[x][y].cativeiro = new Cativeiro(fence);
+              } else if (construcao.building_type === 'azulejo') {
+                board[x][y].azulejo = true;
+              } else {
+               
+              }
+                atualizarDinheiro(userServ[0].dinheiro);
+
+                nomeInput.remove();
+                senhaInput.remove();
+                loginBtn.remove();
+                emailInput.remove();
+                registarButton.remove();
+                scene = 2;
+          
+                console.log(userServ);
+                loop();
             }
           }
         }
       });
-      atualizarDinheiro(userServ[0].dinheiro);
 
-      nomeInput.remove();
-      senhaInput.remove();
-      loginBtn.remove();
-      emailInput.remove();
-      registarButton.remove();
-      scene = 2;
-
-      console.log(userServ);
-      loop();
     } else {
       alert("Login sem sucesso");
     }
