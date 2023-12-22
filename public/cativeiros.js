@@ -99,10 +99,14 @@ function adicionarCativeiroComprado(mx, my) {
     const { i, j } = tileClicado;
 
     // Verifique se não há nada no tile
-    if (!board[i][j].cativeiro)  {
+    if (!board[i][j].isOcupado())  {
       
           board[i][j].cativeiro = new Cativeiro(fence);
           adicionarConstrucaoNoServidor(i, j, "cativeiro");
+          board[i][j].setOcupado();
+          board[i + 1][j].setOcupado();
+          board[i][j + 1].setOcupado();
+          board[i + 1][j + 1].setOcupado();
 
 
       console.log(`Cativeiro adicionado em (${i}, ${j}).`);

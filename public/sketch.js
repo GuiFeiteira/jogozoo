@@ -3,7 +3,7 @@ let emailInput;
 let senhaInput;
 let loginBtn;
 let registarButton;
-let generoSelecionado = "";
+let generoSelecionado;
 let telaSelecaoGenero = false;
 let quadradoVisivel = true;
 let azulejo;
@@ -32,14 +32,14 @@ function draw() {
     loginScene();
   }
   if (scene === 1) {
-    if (!telaSelecaoGenero) {
-      
-      telaSelecaoGenero = true;
-      desenharTelaSelecaoGenero();
-    } else {
-      scene = 2
 
-    }
+      desenharTelaSelecaoGenero();
+      verificarSelecaoGenero(width / 3, height / 2, 200, 220, "Homem");
+      verificarSelecaoGenero((3 * width) / 4, height / 2, 200, 220, "Mulher");
+
+      
+
+    
   } else if (scene === 2) {
     console.log("Chamando gameScene2");
     draw_Board();
@@ -58,15 +58,6 @@ function gameScene() {
 }
 
 function mousePressed() {
-  if (scene === 1) {
-    verificarSelecaoGenero(width / 3, height / 2, 200, 220, "Homem");
-    verificarSelecaoGenero((3 * width) / 4, height / 2, 200, 220, "Mulher");
-
-    if (generoSelecionado !== "") {
-      scene = 2;
-      //loop();
-    }
-  }
   if (scene === 2) {
     for (let i = 0; i < board.length; i++) {
       for (let j = 0; j < board[i].length; j++) {
@@ -85,7 +76,7 @@ function mousePressed() {
    
   }
 
-noLoop()
+//noLoop()
 }
 
 function preload() {

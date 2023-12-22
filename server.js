@@ -66,7 +66,7 @@ app.post("/registro", (req, res) => {
           let initMoney =
             "UPDATE utilizadores SET dinheiro = 500 WHERE nome = '" +
             nome +
-            ")";
+            "'";
           dbase.query(initMoney, (err, result) => {
             if (err) throw err;
             console.log(`Dinheiro inicializado para ${nome}`);

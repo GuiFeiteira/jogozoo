@@ -21,19 +21,23 @@ function adicionarAzulejo(mx, my, azulejo) {
     }
   }
   if (tileClicado) {
-    const { i, j } = tileClicado;
+    let { i, j } = tileClicado;
 
-    // Verifique se não há nada no tile
-    if (!board[i][j].azulejo)  {
+    
+    if (!board[i][j].isOcupado())  {
       
           board[i][j].azulejo = true;
-
+          board[i][j].setOcupado();
 
       console.log(`Caminho adicionado em (${i}, ${j}).`);
       adicionarConstrucaoNoServidor(i, j, "azulejo");
-      tileClicado = false 
+      tileClicado = null 
+      
+      loop()
+      
     } else {
       console.log(`Já existe algo no tile (${tileClicado.i}, ${tileClicado.j}).`);
+      tileClicado = null;
     }
   } else {
     console.log('Nenhum tile clicado.');

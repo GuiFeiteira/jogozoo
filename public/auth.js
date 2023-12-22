@@ -25,7 +25,7 @@ function registar() {
       loginBtn.remove();
       emailInput.remove();
       registarButton.remove();
-      scene = 1;
+      scene = 2;
       draw();
     }
   });
