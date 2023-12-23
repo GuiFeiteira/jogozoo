@@ -70,9 +70,15 @@ app.post("/registro", (req, res) => {
           dbase.query(initMoney, (err, result) => {
             if (err) throw err;
             console.log(`Dinheiro inicializado para ${nome}`);
-          });
 
-          res.send({ ack: 1 });
+            let getUserDetails =
+              "SELECT * FROM utilizadores WHERE id = " + userId;
+            dbase.query(getUserDetails, (err, userDetails) => {
+              if (err) throw err;
+
+              res.send([userDetails[0]]);
+            });
+          });
         });
       });
     }
@@ -119,7 +125,6 @@ app.post("/updateMoney", (req, res) => {
     userId +
     "'";
   dbase.query(updateMoney, (err, result) => {
-    
     if (err) throw err;
     res.send(result);
   });

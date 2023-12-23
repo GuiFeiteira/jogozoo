@@ -28,7 +28,7 @@ class Tile {
   }
   draw_Bilheteira() {
     if (this.bilheteira) {
-      image(this.bilheteira.bilhImagem, this.x, this.y, this.s, this.s);
+      this.bilheteira.desenharBilheteira(this.x, this.y, this.s, );
     }
   }
 
@@ -74,6 +74,7 @@ function create_Board() {
         // Adicione mais condições conforme necessário
       ) {
         board[i][j].azulejo = true;
+        board[i][j].setOcupado();
       }
     }
   }
