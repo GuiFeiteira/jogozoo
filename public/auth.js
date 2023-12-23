@@ -1,3 +1,6 @@
+let registroConcluido = false;
+
+
 function registar() {
   let nome = nomeInput.value();
   let email = emailInput.value();
@@ -15,17 +18,20 @@ function registar() {
   };
 
   httpPost("/registro", user, "json", (respostaServer) => {
-    console.log(respostaServer);
-
+    userServ = respostaServer;
+    console.log('lllll', userServ);
+    
     if (respostaServer.ack == 0) {
       alert("Utilizador Já Existe");
     } else {
+      registroConcluido = true;
+
       nomeInput.remove();
       senhaInput.remove();
       loginBtn.remove();
       emailInput.remove();
       registarButton.remove();
-      scene = 1;
+      scene = 2;
       draw();
     }
   });
@@ -43,7 +49,7 @@ function login() {
   httpPost("/login", user, "json", (respostaServer) => {
     if (respostaServer.length > 0) {
       userServ = respostaServer;
-
+      console.log('bah bahb', userServ)
       loadJSON("/getTiles/" + userServ[0].id, (resposta) => {
         buildingsPlayer = resposta;
         console.log(buildingsPlayer);
@@ -78,6 +84,17 @@ function login() {
           }
         }
       });
+      atualizarDinheiro(userServ[0].dinheiro);
+
+      nomeInput.remove();
+      senhaInput.remove();
+      loginBtn.remove();
+      emailInput.remove();
+      registarButton.remove();
+      scene = 2;
+
+      console.log(userServ);
+      loop();
 
     } else {
       alert("Login sem sucesso");

@@ -28,7 +28,7 @@ class Tile {
   }
   draw_Bilheteira() {
     if (this.bilheteira) {
-      image(this.bilheteira.bilhImagem, this.x, this.y, this.s, this.s);
+      this.bilheteira.desenharBilheteira(this.x, this.y, this.s, );
     }
   }
 
@@ -37,11 +37,11 @@ class Tile {
       x > this.x && x < this.x + this.s && y > this.y && y < this.y + this.s
     );
   }
-  setOcupado(estado) {
-    this.ocupado = estado;
+  setOcupado() {
+    this.ocupado = true;
   }
 
-  isTileOcupado() {
+  isOcupado() {
     return this.ocupado;
   }
 }
@@ -57,7 +57,7 @@ function draw_Board() {
 }
 
 function create_Board() {
-  let initialPosX = (width - gridSize * squareSize - 100) / 2;
+  let initialPosX = (width - gridSize * squareSize ) / 2;
   let initialPosY = (height - gridSize * squareSize) / 2;
 
   for (let i = 0; i < gridSize; i++) {
@@ -74,6 +74,7 @@ function create_Board() {
         // Adicione mais condições conforme necessário
       ) {
         board[i][j].azulejo = true;
+        board[i][j].setOcupado();
       }
     }
   }
