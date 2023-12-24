@@ -11,9 +11,9 @@ let azulejo;
 let board = [];
 let gridSize = 18;
 
-let janelaAberta = false;
 
-let scene = 0;
+
+let scene = 2;
 let userServ;
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -39,9 +39,15 @@ function draw() {
     gameScene();
     loja.mostrar();
 
+
     if (registroConcluido) {
       image(bonecoHelp, 20, 420, 550, 145);
       loop()
+    }
+    if (precoAtualizado && registroConcluido2) {
+      image(bonecoHelp2, 20, 420, 550, 145);
+      loop()
+      
     }
   }
   console.log(`Cena Atual: ${scene}`);
@@ -64,13 +70,9 @@ function mousePressed() {
         if ((i === 17 && j === 6) || (i === 17 && j === 7)) {
           console.log("Amazingggg");
           registroConcluido = false
-          janelaAberta = true;
           loop()
-          if (janelaAberta) {
-            
-            desenharPopup();
-            
-          }
+          board[17][6].bilheteira.desenharPopup();
+
         }
       }
       }
@@ -93,4 +95,6 @@ function preload() {
   fence = loadImage("./recursos/fence.png");
   bonecoHelp = loadImage("./recursos/Group 1.png");
   both = loadImage("./recursos/booth.png");
+  bonecoHelp2 = loadImage('./recursos/Group 2.png')
+  bonecoHelp3 = loadImage('./recursos/Group 3.png')
 }

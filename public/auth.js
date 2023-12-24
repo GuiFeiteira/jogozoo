@@ -1,4 +1,5 @@
 let registroConcluido = false;
+let registroConcluido2 = false;
 
 
 function registar() {
@@ -25,6 +26,7 @@ function registar() {
       alert("Utilizador Já Existe");
     } else {
       registroConcluido = true;
+      registroConcluido2 = true;
 
       nomeInput.remove();
       senhaInput.remove();

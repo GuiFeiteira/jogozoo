@@ -67,10 +67,8 @@ function create_Board() {
       let y = initialPosY + j * squareSize;
       board[i][j] = new Tile(x, y, i, j, squareSize);
       if (
-        (i === 12 && j === 13) ||
-        (i === 11 && j === 13) ||
-        (i === 13 && j === 13) ||
-        (i === 12 && j === 14)
+        (i === 17 && j === 8) ||
+        (i === 16 && j === 8) 
         // Adicione mais condições conforme necessário
       ) {
         board[i][j].azulejo = true;

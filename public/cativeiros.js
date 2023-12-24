@@ -80,6 +80,7 @@ class Cativeiro_Loja {
 
 function adicionarCativeiroComprado(mx, my) {
   let tileClicado = null;
+  
 
   // Verifica se o clique está dentro de algum tile
   for (let i = 0; i < board.length; i++) {
