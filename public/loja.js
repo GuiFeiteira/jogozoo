@@ -81,7 +81,7 @@ class Loja {
     if (categoria !== null) {
       this.barraX = this.barraLateralX;
       this.barraY = height - 110;
-
+      precoAtualizado = false
       // Desenhe a barra
       fill(200);
       rect(this.barraX, this.barraY, width - this.barraLateralX * 2, 150, 10);
@@ -170,7 +170,9 @@ class Loja {
         loop();
       } else {
         this.mostrarProdutosCategoria(this.ultimaCategoriaClicada);
+        
         if (this.aguardandoClique) {
+          
           
           adicionarCativeiroComprado(mx, my);
           
