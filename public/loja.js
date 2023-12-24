@@ -1,3 +1,4 @@
+cativeiroHelp = false
 class Loja {
   constructor() {
     this.itens = ["Cativeiros", "Edificios", "Decorações", "Animais"];
@@ -60,6 +61,8 @@ class Loja {
           this.barraAberta = false;
           loop();
         } else if (this.produtoSelecionado instanceof Cativeiro_Loja) {
+          cativeiroHelp = true
+
           this.aguardandoClique = true;
           loop()
         }else if (this.produtoSelecionado instanceof Caminho) {
@@ -170,11 +173,11 @@ class Loja {
         loop();
       } else {
         this.mostrarProdutosCategoria(this.ultimaCategoriaClicada);
-        
+
         if (this.aguardandoClique) {
           
-          
           adicionarCativeiroComprado(mx, my);
+          cativeiroHelp = false
           
           this.aguardandoClique = false; 
           this.barraAberta = false;

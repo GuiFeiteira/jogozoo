@@ -13,7 +13,7 @@ let gridSize = 18;
 
 
 
-let scene = 2;
+let scene = 0;
 let userServ;
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -22,7 +22,7 @@ function setup() {
 
   create_Board();
   board[17][6].bilheteira = new Bilheteira(both);
-  board[3][4].cativeiro = new Cativeiro(fence);
+
 }
 
 function draw() {
@@ -42,12 +42,17 @@ function draw() {
 
     if (registroConcluido) {
       image(bonecoHelp, 20, 420, 550, 145);
-      loop()
+      
     }
     if (precoAtualizado && registroConcluido2) {
       image(bonecoHelp2, 20, 420, 550, 145);
-      loop()
+      registroConcluido2 = false
       
+    }
+    if (cativeiroHelp && registroConcluido3) {
+      image(bonecoHelp3, 20, 420, 550, 145);
+      registroConcluido3 = false
+
     }
   }
   console.log(`Cena Atual: ${scene}`);
