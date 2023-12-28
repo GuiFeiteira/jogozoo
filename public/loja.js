@@ -74,7 +74,7 @@ class Loja {
           this.produtoSelecionado.preco = this.produtoSelecionado.preco + (this.produtoSelecionado.preco * 0.2)
           loop()
         } else if (this.produtoSelecionado instanceof Edificio) {
-          this.aguardandoCliqueEdificio = true;
+          this.aguardandoClique3 = true;
           console.log('RABAAAAAA', this.produtoSelecionado)
             
           loop()
@@ -100,7 +100,7 @@ class Loja {
 
       let espacamento = 30;
 
-      this.produtoSelecionado = null;
+      //this.produtoSelecionado = null;
 
       // Verificar a categoria atual e exibir os produtos correspondentes
       let produtos = this.produtos[categoria];
@@ -160,7 +160,7 @@ class Loja {
         categoriaClicada = this.itens[i];
         console.log("Clicou em " + this.itens[i]);
         this.barraAberta = true;
-        this.ultimaCategoriaClicada = categoriaClicada; // Atualiza a última categoria clicada
+        this.ultimaCategoriaClicada = categoriaClicada; 
       }
     }
 
@@ -197,14 +197,15 @@ class Loja {
           adicionarAzulejo(mx, my, this.produtoSelecionado);
           this.aguardandoClique2 = false;
           this.barraAberta = false;
+          this.produtoSelecionado = null
           
           loop();
 
           
-        }else if (this.aguardandoCliqueEdificio) {
+        }else if (this.aguardandoClique3) {
           adicionarEdificioComprado(mx, my, this.produtoSelecionado);
-          console.log('kkkkkkkkkk', this.produtoSelecionado)
-          this.aguardandoCliqueEdificio = false;
+          
+          this.aguardandoClique3 = false;
           this.barraAberta = false;
           loop()
           
