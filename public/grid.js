@@ -10,6 +10,7 @@ class Tile {
     this.cativeiro = null;
     this.bilheteira = null;
     this.azulejo = false;
+    this.edificio = null;
   }
 
   draw_Tile() {
@@ -19,11 +20,17 @@ class Tile {
     if (this.azulejo) {
       image(azulejo, this.x, this.y, this.s, this.s);
     }
+
   }
 
   draw_Cativeiro() {
     if (this.cativeiro) {
       this.cativeiro.desenharCativeiro(this.x, this.y, this.s);
+    }
+  }
+  draw_Edificio() {
+    if (this.edificio) {
+      image(this.edificio.imagem, this.x, this.y, this.s, this.s);
     }
   }
   draw_Bilheteira() {
@@ -52,6 +59,7 @@ function draw_Board() {
       board[i][j].draw_Tile();
       board[i][j].draw_Cativeiro();
       board[i][j].draw_Bilheteira();
+      board[i][j].draw_Edificio();
     }
   }
 }

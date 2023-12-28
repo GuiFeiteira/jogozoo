@@ -1,3 +1,4 @@
+cativeiroHelp = false
 class Loja {
   constructor() {
     this.itens = ["Cativeiros", "Edificios", "Decorações", "Animais"];
@@ -13,7 +14,10 @@ class Loja {
         "Cativeiro Médio",
         "Cativeiro Grande",
       ],
-      Edificios: ["Loja de Souvenirs", "Loja de Comida", "Loja de Brinquedos"],
+      Edificios: [
+        new Edificio('Armazem', 120, armazem),
+        new Edificio('Loja Lembracas', 250, sovenir)
+        , "Loja de Brinquedos"],
       Decorações: [new Caminho('caminho', 50, azulejo), "Fonte", "Banco de Jardim"],
       Animais: [
         new Animal("Leão", 100, loadImage("./recursos/lion.png")),
@@ -60,6 +64,8 @@ class Loja {
           this.barraAberta = false;
           loop();
         } else if (this.produtoSelecionado instanceof Cativeiro_Loja) {
+          cativeiroHelp = true
+
           this.aguardandoClique = true;
           loop()
         }else if (this.produtoSelecionado instanceof Caminho) {
@@ -67,6 +73,12 @@ class Loja {
           this.produtoSelecionado.comprado = false;
           this.produtoSelecionado.preco = this.produtoSelecionado.preco + (this.produtoSelecionado.preco * 0.2)
           loop()
+        } else if (this.produtoSelecionado instanceof Edificio) {
+          this.aguardandoCliqueEdificio = true;
+          console.log('RABAAAAAA', this.produtoSelecionado)
+            
+          loop()
+
         }
       } else {
         console.log("Não é possível comprar o produto.");
@@ -98,7 +110,7 @@ class Loja {
         let botaoFecharX = this.barraX + width - this.barraLateralX * 2 - 30;
         let botaoFecharY = this.barraY + 10;
 
-        let produtoX = this.barraX + 10 + (80 + espacamento) * i;
+        let produtoX = this.barraX + 20 + (80 + espacamento) * i;
         let produtoY = this.barraY + 10;
         if (produto.comprado) {
           fill(100);
@@ -112,11 +124,11 @@ class Loja {
         text("X", botaoFecharX + 10, botaoFecharY + 10);
 
         if (produto.imagem) {
-          image(produto.imagem, produtoX + 17, produtoY + 10, 60, 60);
+          image(produto.imagem, produtoX + 18, produtoY + 10, 55, 55);
         }
 
         fill(0);
-        text(`Preço: ${produto.preco}`, produtoX + 50, produtoY + 80);
+        text(`Preço: ${produto.preco}`, produtoX + 45, produtoY + 80);
 
         if (
           mouseX > produtoX &&
@@ -170,11 +182,11 @@ class Loja {
         loop();
       } else {
         this.mostrarProdutosCategoria(this.ultimaCategoriaClicada);
-        
+
         if (this.aguardandoClique) {
           
-          
           adicionarCativeiroComprado(mx, my);
+          cativeiroHelp = false
           
           this.aguardandoClique = false; 
           this.barraAberta = false;
@@ -189,10 +201,15 @@ class Loja {
           loop();
 
           
+        }else if (this.aguardandoCliqueEdificio) {
+          adicionarEdificioComprado(mx, my, this.produtoSelecionado);
+          console.log('kkkkkkkkkk', this.produtoSelecionado)
+          this.aguardandoCliqueEdificio = false;
+          this.barraAberta = false;
+          loop()
+          
         } else {
           this.comprarProduto();
-          
-          
           
         }
       }

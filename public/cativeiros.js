@@ -12,15 +12,15 @@ class Cativeiro {
       let animal = this.animais[i];
       if (animal && animal.imagem) {
         // Calcular as coordenadas do animal para cada posição no array de animais
-        let animalX = offsetX + tamanho / 2 + (i % 2) * tamanho / 2;
-        let animalY = offsetY + tamanho / 2 + Math.floor(i / 2) * tamanho / 2;
+        let animalX = (offsetX + (i % 2) * tamanho / 2) ;
+        let animalY = offsetY + Math.floor(i / 2) * tamanho / 2;
         // Calcular as coordenadas do tile do cativeiro ocupado pelo animal
         let tileX = Math.floor((animalX - offsetX) / (tamanho ));
         let tileY = Math.floor((animalY - offsetY) / (tamanho ));
         // Verificar se o animal está dentro do cativeiro antes de desenhá-lo
         if (tileX >= 0 && tileX < 2 && tileY >= 0 && tileY < 2) {
-          image(animal.imagem, animalX, animalY, tamanho , tamanho );
-        }
+          image(animal.imagem, animalX, animalY+ 10, tamanho +7 , tamanho +7 );
+        } 
       } else {
         console.log("A propriedade imagem do animal é undefined.");
       }

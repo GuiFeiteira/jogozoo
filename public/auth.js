@@ -1,5 +1,6 @@
 let registroConcluido = false;
 let registroConcluido2 = false;
+let registroConcluido3 = false;
 
 
 function registar() {
@@ -27,6 +28,7 @@ function registar() {
     } else {
       registroConcluido = true;
       registroConcluido2 = true;
+      registroConcluido3 = true;
 
       nomeInput.remove();
       senhaInput.remove();
