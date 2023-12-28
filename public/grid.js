@@ -30,12 +30,12 @@ class Tile {
   }
   draw_Edificio() {
     if (this.edificio) {
-      image(this.edificio.imagem, this.x, this.y, this.s, this.s);
+      this.edificio.desenharEdificio(this.x, this.y, this.s)
     }
   }
   draw_Bilheteira() {
     if (this.bilheteira) {
-      this.bilheteira.desenharBilheteira(this.x, this.y, this.s, );
+      this.bilheteira.desenharBilheteira(this.x, this.y, this.s);
     }
   }
 

@@ -102,6 +102,6 @@ function preload() {
   both = loadImage("./recursos/booth.png");
   bonecoHelp2 = loadImage('./recursos/Group 2.png')
   bonecoHelp3 = loadImage('./recursos/Group 3.png')
-  sovenir = loadImage('./recursos/shop.png')
-  armazem = loadImage('./recursos/warehouse.png')
+  sovenir = loadImage("./recursos/shop.png")
+  armazem = loadImage("./recursos/warehouse.png")
 }
