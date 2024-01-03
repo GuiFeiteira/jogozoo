@@ -81,3 +81,22 @@ function atualizarDinheiroNoServidor(novoDinheiro) {
     // Aqui você pode adicionar lógica adicional se necessário
   });
 }
+
+function adicionarAnimalNoServidor(i,j, animal){
+  let userId = userServ[0].id;
+  console.log(cativeiroClicado)
+  
+  loadJSON("/getTiles/" + userServ[0].id, (resposta) => {
+    buildingsPlayer = resposta;
+    for (let i = 0; i < buildingsPlayer.length; i++) {
+      let construcao = buildingsPlayer[i];
+      if (construcao.building_type === 'cativeiro' &&
+          construcao.tile_x === i && 
+          construcao.tile_y === j) {
+        console.log('ID do cativeiro clicado:', construcao.id);
+
+      }
+     
+    }
+  })
+}

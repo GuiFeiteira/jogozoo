@@ -60,8 +60,8 @@ class Loja {
         this.produtoSelecionado.comprado = true;
         if (this.produtoSelecionado instanceof Animal) {
           
-          adicionarAnimalAoCativeiro(this.produtoSelecionado);
-          this.barraAberta = false;
+          this.aguardandoCliqueAnimal = true;
+          
           loop();
         } else if (this.produtoSelecionado instanceof Cativeiro_Loja) {
           cativeiroHelp = true
@@ -207,6 +207,13 @@ class Loja {
           
           this.aguardandoClique3 = false;
           this.barraAberta = false;
+          loop()
+          
+        }else if (this.aguardandoCliqueAnimal) {
+          adicionarAnimalAoCativeiro(mx, my, this.produtoSelecionado)
+          
+          this.aguardandoCliqueAnimal = false
+          this.barraAberta = false
           loop()
           
         } else {
