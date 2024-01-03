@@ -6,7 +6,7 @@ class Edificio {
     }
 
     desenharEdificio(x, y, s) {
-        image(this.imagem, x, y, s, s);
+        image(this.imagem, x, y, s , s );
     }
 }
 
@@ -35,6 +35,7 @@ function adicionarEdificioComprado(mx, my, edificio) {
             board[i][j].edificio = edificio;
             board[i][j].setOcupado();
 
+            adicionarConstrucaoNoServidor(i, j, edificio.nome);
             console.log(`Edifício adicionado em (${i}, ${j}).`);
         } else {
             console.log(`Já existe algo no tile (${tileClicado.i}, ${tileClicado.j}).`);

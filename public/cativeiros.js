@@ -1,6 +1,6 @@
 class Cativeiro {
   constructor(fense) {
-    
+    this.id = id
     this.cercaImagem = fense;
     this.animais = [];
   }
@@ -64,19 +64,50 @@ class Cativeiro_Loja {
   }
 }
 
- function adicionarAnimalAoCativeiro(animal) {
-  // Encontrar cativeiros do jogador (pode ser necessário adaptar esta lógica com base no seu código)
-  const cativeirosDoJogador = encontrarCativeiros();
-  console.log(cativeirosDoJogador);
-  // Adicionar o animal ao primeiro cativeiro disponível
-  if (cativeirosDoJogador.length > 0) {
-    cativeirosDoJogador[0].adicionarAnimal(animal);
-    cativeirosDoJogador[0].desenharCativeiro();
+function adicionarAnimalAoCativeiro(mx, my, animal) {
+  const cativeiroClicado = encontrarCativeiroClicado(mx, my);
 
-    console.log("Animal adicionado ao cativeiro com sucesso.");
+  if (cativeiroClicado) {
+    cativeiroClicado.adicionarAnimal(animal);
+    cativeiroClicado.desenharCativeiro(mx, my, squareSize); // Atualizei para passar as coordenadas do clique e o tamanho do tile
+
+    console.log("Animal adicionado ao cativeiro com sucesso.", cativeiroClicado);
+  } else {
+    console.log("Clique fora do cativeiro. Animal não adicionado.");
   }
+
   loop();
 }
+
+// Função auxiliar para encontrar o cativeiro clicado
+function encontrarCativeiroClicado(mx, my) {
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board[i].length; j++) {
+      const cativeiro = board[i][j].cativeiro;
+
+      if (cativeiro && cliqueDentroDoCativeiro(mx, my, i, j)) {
+        return cativeiro;
+      }
+    }
+  }
+
+  return null; // Retorna null se nenhum cativeiro foi clicado
+}
+
+// Função auxiliar para verificar se o clique está dentro do cativeiro
+function cliqueDentroDoCativeiro(mx, my, tileX, tileY) {
+  const tileSize = squareSize;
+  const offsetX = board[tileX][tileY].x;
+  const offsetY = board[tileX][tileY].y;
+
+  return (
+    mx > offsetX &&
+    mx < offsetX + tileSize * 2 &&
+    my > offsetY &&
+    my < offsetY + tileSize * 2
+  );
+}
+
 
 function adicionarCativeiroComprado(mx, my) {
   let tileClicado = null;

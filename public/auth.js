@@ -64,13 +64,16 @@ function login() {
             let y = construcao.tile_y
             if (board[x] && board[x][y]) {
               console.log("A meter construção", construcao);
-
-              // Verifique o tipo de construção e adicione ao tabuleiro
               if (construcao.building_type === 'cativeiro') {
                 board[x][y].cativeiro = new Cativeiro(fence);
               } else if (construcao.building_type === 'azulejo') {
                 board[x][y].azulejo = true;
-              } else {
+              } else if (construcao.building_type === 'Armazem') {
+                board[x][y].edificio =  new Edificio('A', 1, armazem)
+              }else if (construcao.building_type === 'Loja Lembracas') {
+                board[x][y].edificio =  new Edificio('l', 1, sovenir)
+                
+              }{
                
               }
                 atualizarDinheiro(userServ[0].dinheiro);
