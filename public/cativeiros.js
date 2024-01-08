@@ -1,23 +1,22 @@
 class Cativeiro {
   constructor(fense) {
-    this.id = id
     this.cercaImagem = fense;
     this.animais = [];
   }
   desenharCativeiro(x, y, tamanho) {
-    // Calcular as coordenadas para desenhar a cerca uma vez
+   
     let offsetX = x;
     let offsetY = y;
     for (let i = 0; i < this.animais.length; i++) {
       let animal = this.animais[i];
       if (animal && animal.imagem) {
-        // Calcular as coordenadas do animal para cada posição no array de animais
+       
         let animalX = (offsetX + (i % 2) * tamanho / 2) ;
         let animalY = offsetY + Math.floor(i / 2) * tamanho / 2;
-        // Calcular as coordenadas do tile do cativeiro ocupado pelo animal
+       
         let tileX = Math.floor((animalX - offsetX) / (tamanho ));
         let tileY = Math.floor((animalY - offsetY) / (tamanho ));
-        // Verificar se o animal está dentro do cativeiro antes de desenhá-lo
+       
         if (tileX >= 0 && tileX < 2 && tileY >= 0 && tileY < 2) {
           image(animal.imagem, animalX, animalY+ 10, tamanho +7 , tamanho +7 );
         } 
@@ -69,7 +68,26 @@ function adicionarAnimalAoCativeiro(mx, my, animal) {
 
   if (cativeiroClicado) {
     cativeiroClicado.adicionarAnimal(animal);
-    cativeiroClicado.desenharCativeiro(mx, my, squareSize); // Atualizei para passar as coordenadas do clique e o tamanho do tile
+    
+    cativeiroClicado.desenharCativeiro(mx, my, squareSize);
+    
+    for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < board[i].length; j++) {
+        if (board[i][j].click_Tile(mx, my)) {
+          tileClicado = { i, j };
+          console.log('Clicou no tile:', i, j);
+          break; 
+        }
+      }
+      if (tileClicado) {
+        break; 
+      }
+    }
+    if (tileClicado) {
+      const { i, j } = tileClicado;
+      adicionarAnimalNoServidor( i , j, animal.nome)
+    }
+    
 
     console.log("Animal adicionado ao cativeiro com sucesso.", cativeiroClicado);
   } else {
@@ -79,7 +97,6 @@ function adicionarAnimalAoCativeiro(mx, my, animal) {
   loop();
 }
 
-// Função auxiliar para encontrar o cativeiro clicado
 function encontrarCativeiroClicado(mx, my) {
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[i].length; j++) {
@@ -91,10 +108,9 @@ function encontrarCativeiroClicado(mx, my) {
     }
   }
 
-  return null; // Retorna null se nenhum cativeiro foi clicado
+  return null; 
 }
 
-// Função auxiliar para verificar se o clique está dentro do cativeiro
 function cliqueDentroDoCativeiro(mx, my, tileX, tileY) {
   const tileSize = squareSize;
   const offsetX = board[tileX][tileY].x;

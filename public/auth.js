@@ -54,9 +54,17 @@ function login() {
     if (respostaServer.length > 0) {
       userServ = respostaServer;
       console.log('bah bahb', userServ)
+    
       loadJSON("/getTiles/" + userServ[0].id, (resposta) => {
         buildingsPlayer = resposta;
         console.log(buildingsPlayer);
+
+        loadJSON("/getAnimais/" + userServ[0].id, (animaisResposta) => {
+          animais = animaisResposta;
+           console.log('ANIMAISSS', animais )
+
+
+
         if (buildingsPlayer.length > 0) {
           for (let i = 0; i < buildingsPlayer.length; i++) {
             let construcao = buildingsPlayer[i];
@@ -66,12 +74,31 @@ function login() {
               console.log("A meter construção", construcao);
               if (construcao.building_type === 'cativeiro') {
                 board[x][y].cativeiro = new Cativeiro(fence);
+                board[x][y].setOcupado()
+                board[x + 1][y].setOcupado();
+                board[x][y + 1].setOcupado();
+                board[x + 1][y + 1].setOcupado();
+
+                for (let j = 0; j < animais.length; j++) {
+                  let animal = animais[j];
+                  if (animal.tile_x === x && animal.tile_y === y) {
+                    try {
+                      board[x][y].cativeiro.adicionarAnimal(animal);
+                      console.log(`Animal ${animal.nome} adicionado ao cativeiro em (${x}, ${y}).`);
+                    } catch (error) {
+                      console.error(`Erro ao adicionar animal ${animal.nome} ao cativeiro:`, error);
+                    }
+                  }
+                }
               } else if (construcao.building_type === 'azulejo') {
                 board[x][y].azulejo = true;
+                board[x][y].setOcupado()
               } else if (construcao.building_type === 'Armazem') {
-                board[x][y].edificio =  new Edificio('A', 1, armazem)
+                board[x][y].edificio =  new Edificio('Armazem', 1, armazem)
+                board[x][y].setOcupado()
               }else if (construcao.building_type === 'Loja Lembracas') {
-                board[x][y].edificio =  new Edificio('l', 1, sovenir)
+                board[x][y].edificio =  new Edificio('Loja Lembracas', 1, sovenir)
+                board[x][y].setOcupado()
                 
               }{
                
@@ -90,6 +117,7 @@ function login() {
             }
           }
         }
+      });
       });
       atualizarDinheiro(userServ[0].dinheiro);
 

@@ -99,7 +99,7 @@ app.post("/login", (req, res) => {
   dbase.query(sql, (err, result) => {
     if (err) throw err;
 
-    if (result.length > 0) {
+    if (result.length > 0) {  
       let getMoney =
         "SELECT dinheiro FROM utilizadores WHERE nome = '" + nome + "'";
       dbase.query(getMoney, (err, moneyResult) => {
@@ -156,6 +156,36 @@ app.post("/insertTile", (req, res) => {
   });
 });
 
+app.post("/insertAnimal", (req, res) => {
+  console.log(req.body);
+
+  let userId = req.body.user_id;
+  let tileX = req.body.tile_x;
+  let tileY = req.body.tile_y;
+  let nome = req.body.nome;
+  let url = req.body.url;
+
+  let sql =
+    "INSERT INTO animais (`user_id`, `tile_x`, `tile_y`, `nome`) VALUES ('" +
+    userId +
+    "','" +
+    tileX +
+    "','" +
+    tileY +
+    "','" +
+    nome +
+   // "', '" +
+    //url +
+    "');";
+
+  dbase.query(sql, (err, result) => {
+    if (err) throw err;
+
+    res.send(result);
+  });
+});
+
+
 app.get("/getTiles/:id", (req, res) => {
   let userId = req.params.id;
 
@@ -167,6 +197,19 @@ app.get("/getTiles/:id", (req, res) => {
     res.send(result);
   });
 });
+
+app.get("/getAnimais/:id", (req, res) => {
+  let userId = req.params.id;
+
+  let sql = "SELECT * FROM animais WHERE user_id='" + userId + "';";
+
+  dbase.query(sql, (err, result) => {
+    if (err) throw err;
+
+    res.send(result);
+  });
+});
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
