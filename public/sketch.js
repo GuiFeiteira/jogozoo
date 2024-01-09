@@ -69,6 +69,7 @@ function mousePressed() {
               console.log("Cativeiro");
               const animaisNoCativeiro = board[i][j].cativeiro.animais;
               if (board[i][j].cativeiro.animais.length > 0) {
+                mostrarInformacoesCativeiro(board[i][j].cativeiro);
 
                 console.log("Cativeiro possui animais:", board[i][j].cativeiro.animais);
                 for (let k = 0; k < animaisNoCativeiro.length; k++) {
@@ -76,7 +77,7 @@ function mousePressed() {
                   console.log("Nome do animal:", animal.nome);
                   
                   
-              
+
                 }
                 
               } else {
@@ -133,4 +134,7 @@ function preload() {
   bonecoHelp3 = loadImage("./recursos/Group 3.png");
   sovenir = loadImage("./recursos/shop.png");
   armazem = loadImage("./recursos/warehouse.png");
+  NPC_left = createImg('./recursos/char_walk_left.gif');
+  NPC_left.hide();
+  NPC_right = loadImage('./recursos/char_walk_right.gif');
 }
