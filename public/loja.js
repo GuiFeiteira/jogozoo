@@ -20,9 +20,9 @@ class Loja {
         , "Loja de Brinquedos"],
       Decorações: [new Caminho('caminho', 50, azulejo), "Fonte", "Banco de Jardim"],
       Animais: [
-        new Animal("Leão", 100, loadImage("./recursos/lion.png")),
-        new Animal("Elefante", 150, loadImage("./recursos/elephant.png")),
-        new Animal("Girafa", 120, loadImage("./recursos/giraffe.png")),
+        new Animal("lion", 100, loadImage("./recursos/lion.png")),
+        new Animal("elephant", 150, loadImage("./recursos/elephant.png")),
+        new Animal("giraffe", 120, loadImage("./recursos/giraffe.png")),
       ],
     };
     this.produtoSelecionado = null;

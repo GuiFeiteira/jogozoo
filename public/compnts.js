@@ -66,6 +66,21 @@ function adicionarConstrucaoNoServidor(tileX, tileY, tipoConstrucao) {
   });
 }
 
+function adicionarAnimalNoServidor(tileX, tileY, nome) {
+
+  let userId = userServ[0].id; // ID do usuário logado
+
+  let data = {
+    user_id: userId,
+    tile_x: tileX,
+    tile_y: tileY,
+    nome: nome,
+  };
+
+  httpPost("/insertAnimal", data, "json", (respostaServer) => {
+    console.log(respostaServer);
+  });
+}
 function atualizarDinheiroNoServidor(novoDinheiro) {
   console.log('MONEY MONEY')
   let userId = userServ[0].id; // ID do usuário logado
@@ -82,21 +97,4 @@ function atualizarDinheiroNoServidor(novoDinheiro) {
   });
 }
 
-function adicionarAnimalNoServidor(i,j, animal){
-  let userId = userServ[0].id;
-  console.log(cativeiroClicado)
-  
-  loadJSON("/getTiles/" + userServ[0].id, (resposta) => {
-    buildingsPlayer = resposta;
-    for (let i = 0; i < buildingsPlayer.length; i++) {
-      let construcao = buildingsPlayer[i];
-      if (construcao.building_type === 'cativeiro' &&
-          construcao.tile_x === i && 
-          construcao.tile_y === j) {
-        console.log('ID do cativeiro clicado:', construcao.id);
 
-      }
-     
-    }
-  })
-}
