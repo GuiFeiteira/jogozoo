@@ -81,10 +81,20 @@ function login() {
 
                 for (let j = 0; j < animais.length; j++) {
                   let animal = animais[j];
+
+                  loadImage(animal.url, (img) => {
+                    animal.imagem = img
+                    loop()
+                  });
+                  
+
                   if (animal.tile_x === x && animal.tile_y === y) {
                     try {
+                      
                       board[x][y].cativeiro.adicionarAnimal(animal);
+                      
                       console.log(`Animal ${animal.nome} adicionado ao cativeiro em (${x}, ${y}).`);
+                      animal.url
                     } catch (error) {
                       console.error(`Erro ao adicionar animal ${animal.nome} ao cativeiro:`, error);
                     }

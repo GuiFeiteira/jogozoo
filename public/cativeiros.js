@@ -11,14 +11,14 @@ class Cativeiro {
       let animal = this.animais[i];
       if (animal && animal.imagem) {
        
-        let animalX = (offsetX + (i % 2) * tamanho / 2) ;
+        let animalX = offsetX + (i % 2) * tamanho / 1.2;
         let animalY = offsetY + Math.floor(i / 2) * tamanho / 2;
        
         let tileX = Math.floor((animalX - offsetX) / (tamanho ));
         let tileY = Math.floor((animalY - offsetY) / (tamanho ));
        
         if (tileX >= 0 && tileX < 2 && tileY >= 0 && tileY < 2) {
-          image(animal.imagem, animalX, animalY+ 10, tamanho +7 , tamanho +7 );
+          image(animal.imagem, animalX, animalY+ 10, tamanho +5 , tamanho +5 );
         } 
       } else {
         console.log("A propriedade imagem do animal é undefined.");

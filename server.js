@@ -156,6 +156,8 @@ app.post("/insertTile", (req, res) => {
   });
 });
 
+
+
 app.post("/insertAnimal", (req, res) => {
   console.log(req.body);
 
@@ -163,10 +165,10 @@ app.post("/insertAnimal", (req, res) => {
   let tileX = req.body.tile_x;
   let tileY = req.body.tile_y;
   let nome = req.body.nome;
-  let url = req.body.url;
+  let url = './recursos/'+ nome + '.png';  // Incluindo a palavra "sopa" no URL
 
   let sql =
-    "INSERT INTO animais (`user_id`, `tile_x`, `tile_y`, `nome`) VALUES ('" +
+    "INSERT INTO animais (`user_id`, `tile_x`, `tile_y`, `nome`, `url`) VALUES ('" +
     userId +
     "','" +
     tileX +
@@ -174,8 +176,8 @@ app.post("/insertAnimal", (req, res) => {
     tileY +
     "','" +
     nome +
-   // "', '" +
-    //url +
+    "','" +
+    url +
     "');";
 
   dbase.query(sql, (err, result) => {
@@ -184,6 +186,7 @@ app.post("/insertAnimal", (req, res) => {
     res.send(result);
   });
 });
+
 
 
 app.get("/getTiles/:id", (req, res) => {
@@ -201,7 +204,7 @@ app.get("/getTiles/:id", (req, res) => {
 app.get("/getAnimais/:id", (req, res) => {
   let userId = req.params.id;
 
-  let sql = "SELECT * FROM animais WHERE user_id='" + userId + "';";
+  let sql = "SELECT animal_id, nome, url, tile_x, tile_y FROM animais WHERE user_id='" + userId + "';";
 
   dbase.query(sql, (err, result) => {
     if (err) throw err;
@@ -209,6 +212,7 @@ app.get("/getAnimais/:id", (req, res) => {
     res.send(result);
   });
 });
+
 
 
 app.listen(port, () => {
