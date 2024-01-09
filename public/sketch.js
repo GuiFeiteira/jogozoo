@@ -8,6 +8,9 @@ let telaSelecaoGenero = false;
 let quadradoVisivel = true;
 let azulejo;
 
+let NPC_right;
+let NPC_left;
+
 let board = [];
 let gridSize = 18;
 
@@ -19,7 +22,6 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   squareSize = min(width, height) / gridSize;
   loja = new Loja();
-
   create_Board();
   board[17][6].bilheteira = new Bilheteira(both);
 
@@ -34,7 +36,7 @@ function draw() {
     verificarSelecaoGenero(width / 3, height / 2, 200, 220, "Homem");
     verificarSelecaoGenero((3 * width) / 4, height / 2, 200, 220, "Mulher");
   } else if (scene === 2) {
-    console.log("Chamando gameScene2");
+    //console.log("Chamando gameScene2");
     draw_Board();
     gameScene();
     loja.mostrar();
@@ -55,7 +57,7 @@ function draw() {
 
     }
   }
-  console.log(`Cena Atual: ${scene}`);
+  //console.log(`Cena Atual: ${scene}`);
   noLoop();
 }
 function gameScene() {
@@ -70,21 +72,9 @@ function mousePressed() {
       for (let j = 0; j < board[i].length; j++) {
         if (board[i][j].click_Tile(mouseX, mouseY)) {
           console.log(i, j);
-
-        
-        if ((i === 17 && j === 6) || (i === 17 && j === 7)) {
-          console.log("Amazingggg");
-          registroConcluido = false
-          loop()
-          board[17][6].bilheteira.desenharPopup();
-
         }
       }
-      }
     }
-    
-
-    
     loja.clicar(mouseX, mouseY);
   }
 }
@@ -104,4 +94,7 @@ function preload() {
   bonecoHelp3 = loadImage('./recursos/Group 3.png')
   sovenir = loadImage('./recursos/shop.png')
   armazem = loadImage('./recursos/warehouse.png')
+  NPC_left = createImg('./recursos/char_walk_left.gif');
+  NPC_left.hide();
+  NPC_right = loadImage('./recursos/char_walk_right.gif');
 }

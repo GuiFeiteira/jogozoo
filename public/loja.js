@@ -144,7 +144,7 @@ class Loja {
   }
 
   clicar(mx, my) {
-    console.log("barraAberta:", this.barraAberta);
+    //console.log("barraAberta:", this.barraAberta);
 
     let categoriaClicada = null;
 

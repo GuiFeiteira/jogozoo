@@ -5,6 +5,7 @@ function gameScene() {
   draw_Board();
   desenharQuadrado();
   desenharBarraDinheiro();
+  setTimeout(npc,5000);
 }
 
 function desenharBarraDinheiro() {
@@ -74,7 +75,7 @@ function atualizarDinheiroNoServidor(novoDinheiro) {
     user_id: userId,
     novoDinheiro: novoDinheiro,
   };
-  console.log(data)
+  //console.log(data)
   // Envia uma solicitação POST para o servidor
   httpPost("/updateMoney", data, "json",(respostaServer) =>{
     console.log(respostaServer);

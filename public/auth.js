@@ -53,17 +53,17 @@ function login() {
   httpPost("/login", user, "json", (respostaServer) => {
     if (respostaServer.length > 0) {
       userServ = respostaServer;
-      console.log('bah bahb', userServ)
+      //console.log('bah bahb', userServ)
       loadJSON("/getTiles/" + userServ[0].id, (resposta) => {
         buildingsPlayer = resposta;
-        console.log(buildingsPlayer);
+        //console.log(buildingsPlayer);
         if (buildingsPlayer.length > 0) {
           for (let i = 0; i < buildingsPlayer.length; i++) {
             let construcao = buildingsPlayer[i];
             let x = construcao.tile_x
             let y = construcao.tile_y
             if (board[x] && board[x][y]) {
-              console.log("A meter construção", construcao);
+              //console.log("A meter construção", construcao);
 
               // Verifique o tipo de construção e adicione ao tabuleiro
               if (construcao.building_type === 'cativeiro') {
@@ -82,7 +82,7 @@ function login() {
                 registarButton.remove();
                 scene = 2;
           
-                console.log(userServ);
+                //console.log(userServ);
                 loop();
             }
           }
@@ -97,7 +97,7 @@ function login() {
       registarButton.remove();
       scene = 2;
 
-      console.log(userServ);
+      //console.log(userServ);
       loop();
 
     } else {
