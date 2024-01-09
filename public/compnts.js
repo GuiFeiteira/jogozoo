@@ -5,6 +5,7 @@ function gameScene() {
   draw_Board();
   desenharQuadrado();
   desenharBarraDinheiro();
+  setTimeout(npc,5000);
 }
 
 function desenharBarraDinheiro() {
@@ -28,7 +29,106 @@ function desenharBarraDinheiro() {
   image(imgMoney, barraTopoX, barraTopoY, barraTopoAltura, barraTopoAltura);
 }
 
+function mostrarInformacoesCativeiro(cativeiro) {
+  // Aqui você pode exibir as informações do cativeiro como quiser
+  console.log("Informações do Cativeiro:");
+  console.log("Animais:", cativeiro.animais);
+  console.log("Outras informações...");
 
+  // Adapte esta parte para exibir visualmente as informações na tela
+  let quadradoX;
+  let quadradoY;
+  let quadradoLargura = 600;
+  let quadradoAltura = 350;
+  let maxAnimaisPorLinha = 2
+
+
+  quadradoX = width / 2 - quadradoLargura / 2;
+  quadradoY = height / 2 - quadradoAltura / 2;
+
+  fill(255, 253, 150, 245); 
+  rect(quadradoX, quadradoY, quadradoLargura, quadradoAltura);
+  textAlign(LEFT, TOP);
+  fill(0)
+  text("Informações do Cativeiro:", quadradoX +10, quadradoY +10);
+  text("Animais: " + (cativeiro.animais ? cativeiro.animais.length : 0), 20, 40); 
+  
+  let offsetX = quadradoX + 10;
+  let offsetY = quadradoY + 80;
+  let imageSize = 50;
+
+  for (let i = 0; i < cativeiro.animais.length; i++) {
+    let animal = cativeiro.animais[i];
+  
+    // Mostrar barras de fome, limpeza e saúde
+    let barraWidth = 10; // Largura da barra
+    let barraHeight = 10; // Altura da barra
+    let fomeBarra = map(animal.fome, 0, 1, 0, barraWidth);
+    let limpezaBarra = map(animal.limpeza, 0, 1, 0, barraWidth);
+    let saudeBarra = map(animal.saude, 0, 1, 0, barraWidth);
+    console.log(animal.saude)
+    if (animal.imagem) {
+      image(animal.imagem, offsetX, offsetY + 3 * (barraHeight + 5), imageSize, imageSize);
+      offsetX += imageSize + 10;
+    
+  
+      fill(255, 0, 0); // Cor da barra de fome (vermelho)
+      rect(offsetX + 100, offsetY + imageSize + 5, fomeBarra, barraHeight);
+      fill(0, 255, 0); // Cor da barra de limpeza (verde)
+      rect(offsetX + 100, offsetY + imageSize + 5 + barraHeight + 5, limpezaBarra, barraHeight);
+      fill(0, 0, 255); // Cor da barra de saúde (azul)
+      rect(offsetX + 100, offsetY + imageSize + 5 + 2 * (barraHeight + 5), saudeBarra, barraHeight);
+
+      // Descrição das barras
+      textAlign(LEFT, CENTER);
+      fill(0);
+      text("Fome", offsetX + barraWidth + 10, offsetY + imageSize + 5 + barraHeight / 2);
+      text("Limpeza", offsetX + barraWidth + 10, offsetY + imageSize + 5 + barraHeight + 5 + barraHeight / 2);
+      text("Saúde", offsetX + barraWidth + 10, offsetY + imageSize + 5 + 2 * (barraHeight + 5) + barraHeight / 2);
+
+
+      offsetX += imageSize + barraWidth + 150;
+      if ((i + 1) % maxAnimaisPorLinha === 0) {
+        offsetX = quadradoX + 10;
+        offsetY += imageSize + 75;
+      }
+      
+  
+
+  }
+
+  }
+
+
+
+  // Botão de alimentar
+  let btnAlimentar = createButton("Alimentar");
+  btnAlimentar.position(quadradoX + 10, quadradoY + 60);
+  btnAlimentar.mousePressed(() => {
+
+    console.log("Ação de alimentar");
+  });
+
+  // Botão de limpar
+  let btnLimpar = createButton("Limpar");
+  btnLimpar.position(quadradoX + 100, quadradoY + 60);
+  btnLimpar.mousePressed(() => {
+
+    console.log("Ação de limpar");
+  });
+
+  let btnFechar = createButton("  X  ");
+  btnFechar.position(quadradoX + quadradoLargura - 30, quadradoY + 10);
+  
+  btnFechar.mousePressed(() => {
+    btnFechar.remove();
+    btnAlimentar.remove()
+    btnLimpar.remove()
+    infoAberta = false;
+    loop()
+  });
+
+}
 function desenharQuadrado() {
   fill(150, 245 ); 
   noStroke(); 
