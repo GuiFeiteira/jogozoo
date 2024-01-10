@@ -1,6 +1,6 @@
 class Cativeiro {
   constructor(fense) {
-    this.id = id
+
     this.cercaImagem = fense;
     this.animais = [];
   }

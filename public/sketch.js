@@ -19,6 +19,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   squareSize = min(width, height) / gridSize;
   loja = new Loja();
+  leaderboard = new LeaderBoard();
 
   create_Board();
   board[17][6].bilheteira = new Bilheteira(both);
@@ -38,6 +39,7 @@ function draw() {
     draw_Board();
     gameScene();
     loja.mostrar();
+    leaderboard.mostrar();
 
 
     if (registroConcluido) {
@@ -69,8 +71,18 @@ function mousePressed() {
     for (let i = 0; i < board.length; i++) {
       for (let j = 0; j < board[i].length; j++) {
         if (board[i][j].click_Tile(mouseX, mouseY)) {
-          console.log(i, j);
+            console.log(i, j);
 
+            //verificar se está ocupado
+            //verificar o tipo de edificio
+            //verificar se está vazio ou cheio
+
+            //se ainda nao estiver cheio
+            let data = {
+              "nomeAnimal":nome,
+              "id_building":board[i][j].id
+            }
+            httpPost('/adicionarAnimal','json',data,resposta)
         
         if ((i === 17 && j === 6) || (i === 17 && j === 7)) {
           console.log("Amazingggg");
@@ -82,10 +94,8 @@ function mousePressed() {
       }
       }
     }
-    
-
-    
     loja.clicar(mouseX, mouseY);
+    leaderboard.clicar(mouseX,mouseY);
   }
 }
 

@@ -1,5 +1,3 @@
-let dinheiro = 500;
-
 function gameScene() {
   background(relva);
   draw_Board();
