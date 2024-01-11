@@ -51,7 +51,7 @@ function mostrarInformacoesCativeiro(cativeiro) {
   textAlign(LEFT, TOP);
   fill(0)
   text("Informações do Cativeiro:", quadradoX +10, quadradoY +10);
-  text("Animais: " + (cativeiro.animais ? cativeiro.animais.length : 0), 20, 40); 
+  
   
   let offsetX = quadradoX + 10;
   let offsetY = quadradoY + 80;
@@ -64,7 +64,7 @@ function mostrarInformacoesCativeiro(cativeiro) {
     let barraWidth = 10; // Largura da barra
     let barraHeight = 10; // Altura da barra
     let fomeBarra = map(animal.fome, 0, 1, 0, barraWidth);
-    let fomeBarra2 = map(1, 0, 1, 0, barraWidth);
+
     let limpezaBarra = map(animal.limpeza, 0, 1, 0, barraWidth);
     let saudeBarra = map(animal.saude, 0, 1, 0, barraWidth);
     console.log(animal.saude)
@@ -75,8 +75,7 @@ function mostrarInformacoesCativeiro(cativeiro) {
       push()
       fill(255, 0, 0); // Cor da barra de fome (vermelho)
       rect(offsetX + 100, offsetY + imageSize + 5, fomeBarra, barraHeight);
-      fill('green'); // Cor da barra de limpeza (verde)
-      rect(offsetX + 100, offsetY + imageSize + 5, fomeBarra2, barraHeight);
+      
       fill(0, 255, 0); // Cor da barra de limpeza (verde)
       rect(offsetX + 100, offsetY + imageSize + 5 + barraHeight + 5, limpezaBarra, barraHeight);
       fill(0, 0, 255); // Cor da barra de saúde (azul)
@@ -177,7 +176,7 @@ function adicionarConstrucaoNoServidor(tileX, tileY, tipoConstrucao) {
   });
 }
 
-function adicionarAnimalNoServidor(tileX, tileY, nome) {
+function adicionarAnimalNoServidor(tileX, tileY, animal) {
 
   let userId = userServ[0].id; // ID do usuário logado
 
@@ -185,7 +184,10 @@ function adicionarAnimalNoServidor(tileX, tileY, nome) {
     user_id: userId,
     tile_x: tileX,
     tile_y: tileY,
-    nome: nome,
+    nome: animal.nome,
+    fome: animal.fome,
+    limpeza: animal.limpeza,
+    saude: animal.saude
   };
 
   httpPost("/insertAnimal", data, "json", (respostaServer) => {
@@ -203,7 +205,23 @@ function atualizarDinheiroNoServidor(novoDinheiro) {
   console.log(data)
   // Envia uma solicitação POST para o servidor
   httpPost("/updateMoney", data, "json",(respostaServer) =>{
-    console.log(respostaServer);
-    // Aqui você pode adicionar lógica adicional se necessário
+    //console.log(respostaServer);
+    
   });
 }
+
+
+function atualizarAtributosAnimal(animalId, fome, saude, limpeza) {
+  
+  let data = {
+    animal_id: animalId,
+    fome: fome,
+    saude: saude,
+    limpeza: limpeza
+    }
+  httpPost("/atualizarAtributosAnimal", data, "json",( respostaServer) =>{
+    console.log(respostaServer);
+  });
+
+}
+

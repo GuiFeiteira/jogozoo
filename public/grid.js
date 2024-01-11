@@ -33,6 +33,11 @@ class Tile {
       this.edificio.desenharEdificio(this.x, this.y, this.s)
     }
   }
+  draw_Decoracao() {
+    if (this.decoracao) {
+      this.decoracao.desenharDecoracao(this.x, this.y, this.s)
+    }
+  }
   draw_Bilheteira() {
     if (this.bilheteira) {
       this.bilheteira.desenharBilheteira(this.x, this.y, this.s);
@@ -60,6 +65,7 @@ function draw_Board() {
       board[i][j].draw_Cativeiro();
       board[i][j].draw_Bilheteira();
       board[i][j].draw_Edificio();
+      board[i][j].draw_Decoracao();
     }
   }
 }

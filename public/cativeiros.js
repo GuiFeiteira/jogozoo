@@ -85,7 +85,7 @@ function adicionarAnimalAoCativeiro(mx, my, animal) {
     }
     if (tileClicado) {
       const { i, j } = tileClicado;
-      adicionarAnimalNoServidor( i , j, animal.nome)
+      adicionarAnimalNoServidor( i , j, animal)
     }
     
 

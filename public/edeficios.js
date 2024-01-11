@@ -62,52 +62,93 @@ function coletarDinheiroLoja() {
   atualizarDinheiroMais(dinheiroLoja)
  
   dinheiroLoja = 0;
-  loop() // Reiniciar o dinheiroLoja ao coletar
+  
 }
 
 setInterval(atualizarDinheiro2(), intervaloAtualizacao);
 
 
 let categorias = [
-    { nome: "Peluches", preco: 10, quantidade: 5 },
-    { nome: "T-shirt", preco: 20, quantidade: 8 },
-    { nome: "Sweat", preco: 30, quantidade: 3 },
-    { nome: "Canecas", preco: 15, quantidade: 10 },
+    { nome: "Peluches", preco: 20, quantidade: 5},
+    { nome: "T-shirt", preco: 20, quantidade: 8},
+    { nome: "Sweat", preco: 30, quantidade: 8},
+    { nome: "Canecas", preco: 10, quantidade: 10},
   ];
 
-function mostrarDinheiro() {
-  let quadradoX;
-  let quadradoY;
-  let quadradoLargura = 600;
-  let quadradoAltura = 350;
 
 
-  quadradoX = width / 2 - quadradoLargura / 2;
-  quadradoY = height / 2 - quadradoAltura / 2;
-
-  fill(255, 253, 150, 245);
-  rect(quadradoX, quadradoY, quadradoLargura, quadradoAltura);
-  textAlign(LEFT, TOP);
-  fill(0);
-
-  let btnFechar = createButton("  X  ");
-  btnFechar.position(quadradoX + quadradoLargura - 30, quadradoY + 10);
-
-  btnFechar.mousePressed(() => {
-    btnFechar.remove();
-    btnColetar.remove()
-
-    loop();
-  });
-  textSize(20);
-  text("Dinheiro atual: " + dinheiroLoja.toFixed(2)+ '', quadradoX + 20, quadradoY + 20);
-
-  // Botão para coletar dinheiro
-  let btnColetar = createButton("Coletar Dinheiro");
-  btnColetar.position(quadradoX + 20, quadradoY + 60);
-
-  btnColetar.mousePressed(() => {
-    coletarDinheiroLoja();
-  });
+  function mostrarDinheiro() {
+    let quadradoX;
+    let quadradoY;
+    let quadradoLargura = 600;
+    let quadradoAltura = 350;
   
-}
+    quadradoX = width / 2 - quadradoLargura / 2;
+    quadradoY = height / 2 - quadradoAltura / 2;
+  
+    fill(255, 253, 150, 245);
+    rect(quadradoX, quadradoY, quadradoLargura, quadradoAltura);
+    textAlign(LEFT, TOP);
+    fill(0);
+  
+    let btnFechar = createButton("  X  ");
+    btnFechar.position(quadradoX + quadradoLargura - 30, quadradoY + 10);
+    btnFechar.mousePressed(() => {
+      btnColetar.remove();
+      btnFechar.remove();
+      for (let i = 0; i < categorias.length; i++) {
+        categorias[i].btnComprar.remove();
+      }
+  
+      loop();
+    });
+  
+    // Mostrar categorias
+    let categoriaX = quadradoX + 20;
+    let categoriaY = quadradoY + 120;
+  
+    for (let i = 0; i < categorias.length; i++) {
+      let categoria = categorias[i];
+  
+      fill(200);
+      rect(categoriaX, categoriaY, 400, 40, 20);
+      fill(0);
+      textSize(16);
+      text(
+        `${categoria.nome}
+        Preço: ${categoria.preco.toFixed(2)}  Quantidade: ${categoria.quantidade}`,
+        categoriaX + 10,
+        categoriaY + 4
+      );
+  
+      // Botão para comprar
+      categoria.btnComprar = createButton("Comprar Estoque");
+      categoria.btnComprar.position(categoriaX + 260, categoriaY);
+      categoria.btnComprar.mousePressed(() => {
+        comprarProduto(categoria);
+      });
+  
+      categoriaY += 60;
+    }
+  
+    textSize(20);
+    text("Dinheiro atual: " + dinheiroLoja.toFixed(2), quadradoX + 20, quadradoY + 20);
+  
+    // Botão para coletar dinheiro
+    let btnColetar = createButton("Coletar Dinheiro");
+    btnColetar.position(quadradoX + 20, quadradoY + 60);
+    btnColetar.mousePressed(() => {
+      coletarDinheiroLoja();
+    });
+  }
+  
+  
+  function comprarProduto(categoria) {
+    if (dinheiro >= categoria.preco && categoria.quantidade > 0) {
+      dinheiro   -= categoria.preco;
+      categoria.quantidade--;
+      console.log(`Produto ${categoria.nome} comprado por ${categoria.preco.toFixed(2)}`);
+    } else {
+      console.log("Não é possível comprar o produto.");
+    }
+  }

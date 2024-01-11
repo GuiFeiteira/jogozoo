@@ -11,14 +11,19 @@ class Loja {
       Cativeiros: [
         new Cativeiro_Loja("Cativeiro Normal", 200, fence),
         new Cativeiro_Loja("Cativeiro Normal2", 200 +50, fence),
-        "Cativeiro Médio",
+        "Cativeiro Médio",  
         "Cativeiro Grande",
       ],
       Edificios: [
         new Edificio('Armazem', 120, armazem),
-        new Edificio('Loja Lembracas', 250, sovenir)
-        , "Loja de Brinquedos"],
-      Decorações: [new Caminho('caminho', 50, azulejo), "Fonte", "Banco de Jardim"],
+        new Edificio('Loja Lembracas', 250, sovenir),
+        new Edificio('Clinica', 300, clinic)
+      ],
+      Decorações: [
+        new Caminho('caminho', 50, azulejo),
+        new Decoracao('tree', 50, tree),
+        new Decoracao('flor', 50, flores)
+      ],
       Animais: [
         new Animal("lion", 100, loadImage("./recursos/lion.png")),
         new Animal("elephant", 150, loadImage("./recursos/elephant.png")),
@@ -54,7 +59,7 @@ class Loja {
         dinheiro -= this.produtoSelecionado.preco;
         atualizarDinheiro(dinheiro);
         console.log(`Produto comprado: ${this.produtoSelecionado.nome}`);
-        //atualizarDinheiroNoServidor(dinheiro);
+        
         noLoop()
 
         this.produtoSelecionado.comprado = true;
@@ -71,11 +76,16 @@ class Loja {
         }else if (this.produtoSelecionado instanceof Caminho) {
           this.aguardandoClique2 = true;
           this.produtoSelecionado.comprado = false;
-          this.produtoSelecionado.preco = this.produtoSelecionado.preco + (this.produtoSelecionado.preco * 0.2)
+          this.produtoSelecionado.preco = Math.round(this.produtoSelecionado.preco + (this.produtoSelecionado.preco * 0.2));
+          loop()
+        } else if (this.produtoSelecionado instanceof Decoracao) {
+          this.aguardandoClique4 = true;
+          this.produtoSelecionado.comprado = false;
+          this.produtoSelecionado.preco = Math.round(this.produtoSelecionado.preco + (this.produtoSelecionado.preco * 0.2));
           loop()
         } else if (this.produtoSelecionado instanceof Edificio) {
           this.aguardandoClique3 = true;
-          console.log('RABAAAAAA', this.produtoSelecionado)
+
             
           loop()
 
@@ -207,6 +217,14 @@ class Loja {
           
           this.aguardandoClique3 = false;
           this.barraAberta = false;
+          loop()
+          
+        }else if (this.aguardandoClique4) {
+          adicionarDecoracao(mx, my, this.produtoSelecionado)
+          
+          this.aguardandoClique4 = false;
+          this.barraAberta = false;
+          this.produtoSelecionado = null
           loop()
           
         }else if (this.aguardandoCliqueAnimal) {

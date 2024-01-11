@@ -66,11 +66,16 @@ function mousePressed() {
               const animaisNoCativeiro = board[i][j].cativeiro.animais;
               if (board[i][j].cativeiro.animais.length > 0) {
                 mostrarInformacoesCativeiro(board[i][j].cativeiro);
+                
 
                 console.log("Cativeiro possui animais:", board[i][j].cativeiro.animais);
                 for (let k = 0; k < animaisNoCativeiro.length; k++) {
                   const animal = animaisNoCativeiro[k];
                   console.log("Nome do animal:", animal.nome);
+                  console.log(animal.saude, animal.limpeza)
+                  //atualizarAtributosAnimal(animal.animal_id, animal.fome, animal.saude, animal.limpeza)
+                
+                 
                   
                   
 
@@ -135,4 +140,7 @@ function preload() {
   NPC_left.hide();
   NPC_right = createImg('./recursos/char_walk_right.gif');
   NPC_right.hide();
+  clinic = loadImage('./recursos/clinic.png')
+  tree = loadImage('./recursos/tree.png')
+  flores = loadImage('./recursos/flowers.png')
 }

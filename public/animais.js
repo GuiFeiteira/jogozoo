@@ -3,7 +3,7 @@ class Animal {
     this.nome = nome;
     this.preco = preco;
     this.imagem = imagem;
-    this.comprado = false;
+    
 
     // Atributos de fome, limpeza e saúde
     this.fome = 10;
@@ -11,9 +11,9 @@ class Animal {
     this.saude = 10;
 
     // Defina a taxa de degradação ao longo do tempo
-    this.taxaFome = 0.01;
-    this.taxaLimpeza = 0.02;
-    this.taxaSaude = 0.015;
+    this.taxaFome = 0.05;
+    this.taxaLimpeza = 0.09;
+    this.taxaSaude = 0.030;
 
     // Inicie um intervalo para atualizar os atributos ao longo do tempo
     setInterval(() => {
