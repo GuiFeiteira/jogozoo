@@ -51,11 +51,7 @@ function draw() {
   console.log(`Cena Atual: ${scene}`);
   noLoop();
 }
-function gameScene() {
-  background(relva);
-  desenharQuadrado();
-  desenharMiniBarra();
-}
+
 
 function mousePressed() {
   if (scene === 2) {
@@ -88,6 +84,8 @@ function mousePressed() {
             } else if (board[i][j].edificio) {
               if (board[i][j].edificio.nome === 'Loja Lembracas') {
                 console.log("Loja Lembracas");
+                mostrarDinheiro()
+
               }
               if (board[i][j].edificio.nome === 'Armazem') {
                 console.log("Armazem");
@@ -102,7 +100,6 @@ function mousePressed() {
           }
 
           if ((i === 17 && j === 6) || (i === 17 && j === 7)) {
-            console.log("Amazingggg");
             registroConcluido = false;
             loop();
             board[17][6].bilheteira.desenharPopup();
@@ -136,5 +133,6 @@ function preload() {
   armazem = loadImage("./recursos/warehouse.png");
   NPC_left = createImg('./recursos/char_walk_left.gif');
   NPC_left.hide();
-  NPC_right = loadImage('./recursos/char_walk_right.gif');
+  NPC_right = createImg('./recursos/char_walk_right.gif');
+  NPC_right.hide();
 }

@@ -54,7 +54,7 @@ class Loja {
         dinheiro -= this.produtoSelecionado.preco;
         atualizarDinheiro(dinheiro);
         console.log(`Produto comprado: ${this.produtoSelecionado.nome}`);
-        atualizarDinheiroNoServidor(dinheiro);
+        //atualizarDinheiroNoServidor(dinheiro);
         noLoop()
 
         this.produtoSelecionado.comprado = true;

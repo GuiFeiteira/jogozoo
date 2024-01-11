@@ -47,7 +47,7 @@ class Animal {
     this.fome -= this.taxaFome;
     this.limpeza -= this.taxaLimpeza;
 
-    // Certifique-se de que os valores estão dentro do intervalo [0, 100]
+    
     this.fome = constrain(this.fome, 0, 10);
     this.limpeza = constrain(this.limpeza, 0, 10);
 
