@@ -142,6 +142,7 @@ function mostrarInformacoesCativeiro(cativeiro) {
 function desenharQuadrado() {
   let tamanhoQuadrado = min(width, height) * 0.1;
   if (noite) {
+    
     image(imagemNoite, 20, 20, tamanhoQuadrado, tamanhoQuadrado);
   } else {
     image(imagemDia, 20, 20, tamanhoQuadrado, tamanhoQuadrado);

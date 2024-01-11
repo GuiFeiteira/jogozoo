@@ -1,3 +1,5 @@
+
+
 class Animal {
   constructor(nome, preco, imagem) {
     this.nome = nome;
@@ -52,5 +54,32 @@ class Animal {
     this.limpeza = constrain(this.limpeza, 0, 10);
 
     this.atualizarSaude();
+    
   }
+}
+function simularDoenca(animal) {
+
+  animal.saude = 0;
+
+  text(`Algum visitante atirou comida ao seu animal, ${animal.nome}, ele ficou doente e tera de ir ao veterinario!`);
+  let quadradoX;
+  let quadradoY;
+  let quadradoLargura = 600;
+  let quadradoAltura = 350;
+
+  quadradoX = width / 2 - quadradoLargura / 2;
+  quadradoY = height / 2 - quadradoAltura / 2;
+
+  fill(255, 253, 150, 245);
+  rect(quadradoX, quadradoY, quadradoLargura, quadradoAltura);
+  textAlign(LEFT, TOP);
+  fill(0);
+  
+  let btnFechar = createButton("  X  ");
+  btnFechar.position(quadradoX + quadradoLargura - 30, quadradoY + 10);
+  btnFechar.mousePressed(() => {
+    btnFechar.remove();
+    loop();
+  });
+
 }

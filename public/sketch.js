@@ -7,7 +7,7 @@ let generoSelecionado;
 let telaSelecaoGenero = false;
 let quadradoVisivel = true;
 let azulejo;
-
+let tamanhoQuadrado 
 let board = [];
 let gridSize = 18;
 
@@ -46,12 +46,15 @@ function draw() {
       loop()
     }
     if(noite){
+      
       draw_Board();
       gameScene();
       loja.mostrar();
       leaderboard.mostrar();
       fill(0, 0, 255, 128); 
       rect(0, 0, width, height);
+      tamanhoQuadrado = min(width, height) * 0.1;
+      image(imagemNoite, 20, 20, tamanhoQuadrado, tamanhoQuadrado);
 
     }else{
       draw_Board();
@@ -99,6 +102,12 @@ function mousePressed() {
                   const animal = animaisNoCativeiro[k];
                   console.log("Nome do animal:", animal.nome);
                   console.log(animal.saude, animal.limpeza)
+ //    if (Math.random() < 0.9) { 
+//       console.log("O animal", animal.nome, "adoeceu!");
+//       simularDoenca(animal) 
+//       console.log("Nova saúde do animal:", animal.saude);
+                    
+   //               }
                   //atualizarAtributosAnimal(animal.animal_id, animal.fome, animal.saude, animal.limpeza)
                 
                  
