@@ -51,11 +51,7 @@ function draw() {
   console.log(`Cena Atual: ${scene}`);
   noLoop();
 }
-function gameScene() {
-  background(relva);
-  desenharQuadrado();
-  desenharMiniBarra();
-}
+
 
 function mousePressed() {
   if (scene === 2) {
@@ -70,11 +66,16 @@ function mousePressed() {
               const animaisNoCativeiro = board[i][j].cativeiro.animais;
               if (board[i][j].cativeiro.animais.length > 0) {
                 mostrarInformacoesCativeiro(board[i][j].cativeiro);
+                
 
                 console.log("Cativeiro possui animais:", board[i][j].cativeiro.animais);
                 for (let k = 0; k < animaisNoCativeiro.length; k++) {
                   const animal = animaisNoCativeiro[k];
                   console.log("Nome do animal:", animal.nome);
+                  console.log(animal.saude, animal.limpeza)
+                  //atualizarAtributosAnimal(animal.animal_id, animal.fome, animal.saude, animal.limpeza)
+                
+                 
                   
                   
 
@@ -88,6 +89,8 @@ function mousePressed() {
             } else if (board[i][j].edificio) {
               if (board[i][j].edificio.nome === 'Loja Lembracas') {
                 console.log("Loja Lembracas");
+                mostrarDinheiro()
+
               }
               if (board[i][j].edificio.nome === 'Armazem') {
                 console.log("Armazem");
@@ -102,7 +105,6 @@ function mousePressed() {
           }
 
           if ((i === 17 && j === 6) || (i === 17 && j === 7)) {
-            console.log("Amazingggg");
             registroConcluido = false;
             loop();
             board[17][6].bilheteira.desenharPopup();
@@ -136,5 +138,9 @@ function preload() {
   armazem = loadImage("./recursos/warehouse.png");
   NPC_left = createImg('./recursos/char_walk_left.gif');
   NPC_left.hide();
-  NPC_right = loadImage('./recursos/char_walk_right.gif');
+  NPC_right = createImg('./recursos/char_walk_right.gif');
+  NPC_right.hide();
+  clinic = loadImage('./recursos/clinic.png')
+  tree = loadImage('./recursos/tree.png')
+  flores = loadImage('./recursos/flowers.png')
 }

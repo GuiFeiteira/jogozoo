@@ -81,6 +81,7 @@ function login() {
 
                 for (let j = 0; j < animais.length; j++) {
                   let animal = animais[j];
+                  
 
                   loadImage(animal.url, (img) => {
                     animal.imagem = img
@@ -94,7 +95,8 @@ function login() {
                       board[x][y].cativeiro.adicionarAnimal(animal);
                       
                       console.log(`Animal ${animal.nome} adicionado ao cativeiro em (${x}, ${y}).`);
-                      animal.url
+                     
+                      
                     } catch (error) {
                       console.error(`Erro ao adicionar animal ${animal.nome} ao cativeiro:`, error);
                     }
@@ -103,6 +105,9 @@ function login() {
               } else if (construcao.building_type === 'azulejo') {
                 board[x][y].azulejo = true;
                 board[x][y].setOcupado()
+              }else if (construcao.building_type === 'Clinica') {
+                board[x][y].edificio = new Edificio('Clinica',1, clinic);
+                board[x][y].setOcupado()
               } else if (construcao.building_type === 'Armazem') {
                 board[x][y].edificio =  new Edificio('Armazem', 1, armazem)
                 board[x][y].setOcupado()
@@ -110,8 +115,12 @@ function login() {
                 board[x][y].edificio =  new Edificio('Loja Lembracas', 1, sovenir)
                 board[x][y].setOcupado()
                 
-              }{
-               
+              }else if (construcao.building_type === 'flor') {
+                board[x][y].decoracao = new Decoracao('flor',1, flores);
+                board[x][y].setOcupado()
+              }else if (construcao.building_type === 'tree') {
+                board[x][y].decoracao = new Decoracao('tree',1, tree);
+                board[x][y].setOcupado()
               }
                 atualizarDinheiro(userServ[0].dinheiro);
 

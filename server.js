@@ -187,6 +187,30 @@ app.post("/insertAnimal", (req, res) => {
   });
 });
 
+app.post("/atualizarAtributosAnimal", (req, res) => {
+  let animalId = req.body.animal_id;
+  let fome = req.body.fome;
+  let saude = req.body.saude;
+  let limpeza = req.body.limpeza;
+
+  let sql =
+    "UPDATE animais SET fome = '" +
+    fome +
+    "', saude = '" +
+    saude +
+    "', limpeza = '" +
+    limpeza +
+    "' WHERE animal_id = '" +
+    animald +
+    "';";
+
+  dbase.query(sql, (err, result) => {
+    if (err) throw err;
+
+    res.send(result);
+  });
+});
+
 
 
 app.get("/getTiles/:id", (req, res) => {
@@ -204,7 +228,12 @@ app.get("/getTiles/:id", (req, res) => {
 app.get("/getAnimais/:id", (req, res) => {
   let userId = req.params.id;
 
-  let sql = "SELECT animal_id, nome, url, tile_x, tile_y FROM animais WHERE user_id='" + userId + "';";
+
+  let sql = `
+    SELECT animal_id, nome, url, tile_x, tile_y, fome, limpeza, saude
+    FROM animais
+    WHERE user_id = '${userId}';
+  `;
 
   dbase.query(sql, (err, result) => {
     if (err) throw err;
