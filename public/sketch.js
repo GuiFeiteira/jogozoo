@@ -17,6 +17,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   squareSize = min(width, height) / gridSize;
   loja = new Loja();
+  leaderboard = new LeaderBoard();
 
   create_Board();
   board[17][6].bilheteira = new Bilheteira(both);
@@ -35,6 +36,7 @@ function draw() {
     draw_Board();
     gameScene();
     loja.mostrar();
+    leaderboard.mostrar();
 
     if (registroConcluido) {
       image(bonecoHelp, 20, 420, 550, 145);
@@ -118,6 +120,7 @@ function mousePressed() {
     }
 
     loja.clicar(mouseX, mouseY);
+    leaderboard.clicar(mouseX,mouseY);
   }
 }
 

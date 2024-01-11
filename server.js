@@ -242,6 +242,16 @@ app.get("/getAnimais/:id", (req, res) => {
   });
 });
 
+app.post("/LeaderBoard", async (req, res) => {
+
+  let sql = "SELECT `dinheiro`,`nome` FROM `utilizadores` ORDER by `dinheiro` DESC;" ;
+
+  dbase.query(sql, async (err, result) => {
+    if (err) throw err;
+
+    res.send(result);
+  });
+});
 
 
 app.listen(port, () => {

@@ -95,6 +95,7 @@ function login() {
                       board[x][y].cativeiro.adicionarAnimal(animal);
                       
                       console.log(`Animal ${animal.nome} adicionado ao cativeiro em (${x}, ${y}).`);
+                      loop()
                      
                       
                     } catch (error) {
