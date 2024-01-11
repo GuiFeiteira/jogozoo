@@ -1,3 +1,4 @@
+
 let dinheiro = 500;
 
 function gameScene() {
@@ -6,7 +7,7 @@ function gameScene() {
   desenharQuadrado();
 
   desenharBarraDinheiro();
-  if (noite === 'false') {
+  if (!noite) {
     setTimeout(npc,5000);
   }
   
@@ -54,7 +55,9 @@ function mostrarInformacoesCativeiro(cativeiro) {
   rect(quadradoX, quadradoY, quadradoLargura, quadradoAltura);
   textAlign(LEFT, TOP);
   fill(0)
-  text("Informações do Cativeiro:", quadradoX +10, quadradoY +10);
+  text("Os seus animais precisam de comer e ser limpos, isto vai fazer com ", quadradoX + 20, quadradoY +20);
+  text("que tenham boa saude e atraim mais gente ao seu zoo !", quadradoX + 20, quadradoY +35)
+  text("Os seus animais :", quadradoX + 20, quadradoY +100);
   
   
   let offsetX = quadradoX + 10;
@@ -73,7 +76,7 @@ function mostrarInformacoesCativeiro(cativeiro) {
     let saudeBarra = map(animal.saude, 0, 1, 0, barraWidth);
     console.log(animal.saude)
     if (animal.imagem) {
-      image(animal.imagem, offsetX, offsetY + 3 * (barraHeight + 5), imageSize, imageSize);
+      image(animal.imagem, offsetX + 10, offsetY + 3 * (barraHeight + 5), imageSize, imageSize);
       offsetX += imageSize + 10;
     
       push()
@@ -89,7 +92,7 @@ function mostrarInformacoesCativeiro(cativeiro) {
       textAlign(LEFT, CENTER);
       fill(0);
       text("Fome: ", offsetX + barraWidth + 10, offsetY + imageSize + 5 + barraHeight / 2);
-      text("Limpeza: ", offsetX + barraWidth + 10, offsetY + imageSize + 5 + barraHeight + 5 + barraHeight / 2);
+      text("Higiene: ", offsetX + barraWidth + 10, offsetY + imageSize + 5 + barraHeight + 5 + barraHeight / 2);
       text("Saúde: ", offsetX + barraWidth + 10, offsetY + imageSize + 5 + 2 * (barraHeight + 5) + barraHeight / 2);
       pop()
       
@@ -110,7 +113,7 @@ function mostrarInformacoesCativeiro(cativeiro) {
 
   // Botão de alimentar
   let btnAlimentar = createButton("Alimentar");
-  btnAlimentar.position(quadradoX + 10, quadradoY + 60);
+  btnAlimentar.position(quadradoX + 20, quadradoY + 60);
   btnAlimentar.mousePressed(() => {
 
     console.log("Ação de alimentar");
@@ -118,7 +121,7 @@ function mostrarInformacoesCativeiro(cativeiro) {
 
   // Botão de limpar
   let btnLimpar = createButton("Limpar");
-  btnLimpar.position(quadradoX + 100, quadradoY + 60);
+  btnLimpar.position(quadradoX + 120, quadradoY + 60);
   btnLimpar.mousePressed(() => {
 
     console.log("Ação de limpar");

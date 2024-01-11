@@ -15,7 +15,7 @@ class Tile {
 
   draw_Tile() {
     noFill();
-    //stroke(BOLD);
+    stroke(BOLD);
     square(this.x, this.y, this.s  );
     if (this.azulejo) {
       image(azulejo, this.x, this.y, this.s, this.s);

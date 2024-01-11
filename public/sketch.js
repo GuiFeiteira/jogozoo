@@ -41,22 +41,20 @@ function draw() {
   } else if (scene === 2) {
     tempoDiaAtual += deltaTime / 1000;
     if (tempoDiaAtual >= tempoDia) {
-      tempoDiaAtual = 0; // Reiniciar o contador de tempo
-      noite = !noite; // Alternar entre dia e noite
+      tempoDiaAtual = 0; 
+      noite = !noite; 
       loop()
     }
     if(noite){
-
-      console.log("Chamando gameScene2");
       draw_Board();
       gameScene();
       loja.mostrar();
       leaderboard.mostrar();
-      fill(0, 0, 255, 128); // Cor azul escuro com opacidade de 50%
+      fill(0, 0, 255, 128); 
       rect(0, 0, width, height);
+
     }else{
-        console.log("Chamando gameScene2");
-        draw_Board();
+      draw_Board();
       gameScene();
       loja.mostrar();
       leaderboard.mostrar();
