@@ -4,8 +4,12 @@ function gameScene() {
   background(relva);
   draw_Board();
   desenharQuadrado();
+
   desenharBarraDinheiro();
-  setTimeout(npc,5000);
+  if (noite === 'false') {
+    setTimeout(npc,5000);
+  }
+  
 }
 
 function desenharBarraDinheiro() {
@@ -131,17 +135,16 @@ function mostrarInformacoesCativeiro(cativeiro) {
   });
 
 }
+
 function desenharQuadrado() {
-  fill(150, 245 ); 
-  noStroke(); 
-  rectMode(CORNER);
-
-
   let tamanhoQuadrado = min(width, height) * 0.1;
-
-  
-  rect(20, 20, tamanhoQuadrado, tamanhoQuadrado, 20);
+  if (noite) {
+    image(imagemNoite, 20, 20, tamanhoQuadrado, tamanhoQuadrado);
+  } else {
+    image(imagemDia, 20, 20, tamanhoQuadrado, tamanhoQuadrado);
+  }
 }
+
 
 function atualizarDinheiro(novoValor) {
   dinheiro = novoValor;

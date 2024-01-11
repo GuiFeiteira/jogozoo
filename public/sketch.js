@@ -11,6 +11,9 @@ let azulejo;
 let board = [];
 let gridSize = 18;
 
+let imagemDia;
+let imagemNoite;
+
 let scene = 0;
 let userServ;
 function setup() {
@@ -23,6 +26,10 @@ function setup() {
   board[17][6].bilheteira = new Bilheteira(both);
 }
 
+let tempoDia = 40; // 40 segundos (20 segundos para o dia e 20 segundos para a noite)
+let tempoDiaAtual = 0; // Contador para o tempo do ciclo dia/noite
+let noite = false;
+
 function draw() {
   if (scene === 0) {
     loginScene();
@@ -32,11 +39,29 @@ function draw() {
     verificarSelecaoGenero(width / 3, height / 2, 200, 220, "Homem");
     verificarSelecaoGenero((3 * width) / 4, height / 2, 200, 220, "Mulher");
   } else if (scene === 2) {
-    console.log("Chamando gameScene2");
-    draw_Board();
-    gameScene();
-    loja.mostrar();
-    leaderboard.mostrar();
+    tempoDiaAtual += deltaTime / 1000;
+    if (tempoDiaAtual >= tempoDia) {
+      tempoDiaAtual = 0; // Reiniciar o contador de tempo
+      noite = !noite; // Alternar entre dia e noite
+      loop()
+    }
+    if(noite){
+
+      console.log("Chamando gameScene2");
+      draw_Board();
+      gameScene();
+      loja.mostrar();
+      leaderboard.mostrar();
+      fill(0, 0, 255, 128); // Cor azul escuro com opacidade de 50%
+      rect(0, 0, width, height);
+    }else{
+        console.log("Chamando gameScene2");
+        draw_Board();
+      gameScene();
+      loja.mostrar();
+      leaderboard.mostrar();
+    }
+
 
     if (registroConcluido) {
       image(bonecoHelp, 20, 420, 550, 145);
@@ -50,6 +75,7 @@ function draw() {
       registroConcluido3 = false;
     }
   }
+    
   console.log(`Cena Atual: ${scene}`);
   noLoop();
 }
@@ -146,4 +172,6 @@ function preload() {
   clinic = loadImage('./recursos/clinic.png')
   tree = loadImage('./recursos/tree.png')
   flores = loadImage('./recursos/flowers.png')
+  imagemDia = loadImage('./recursos/sun.png');
+  imagemNoite = loadImage('./recursos/moon.png');
 }
