@@ -38,6 +38,7 @@ class Cativeiro {
       console.log("O cativeiro já está cheio de animais!");
     }
   }
+
 }
 
 function encontrarCativeiros() {

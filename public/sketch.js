@@ -7,7 +7,7 @@ let generoSelecionado;
 let telaSelecaoGenero = false;
 let quadradoVisivel = true;
 let azulejo;
-
+let tamanhoQuadrado 
 let board = [];
 let gridSize = 18;
 
@@ -41,22 +41,23 @@ function draw() {
   } else if (scene === 2) {
     tempoDiaAtual += deltaTime / 1000;
     if (tempoDiaAtual >= tempoDia) {
-      tempoDiaAtual = 0; // Reiniciar o contador de tempo
-      noite = !noite; // Alternar entre dia e noite
+      tempoDiaAtual = 0; 
+      noite = !noite; 
       loop()
     }
     if(noite){
-
-      console.log("Chamando gameScene2");
+      
       draw_Board();
       gameScene();
       loja.mostrar();
       leaderboard.mostrar();
-      fill(0, 0, 255, 128); // Cor azul escuro com opacidade de 50%
+      fill(0, 0, 255, 128); 
       rect(0, 0, width, height);
+      tamanhoQuadrado = min(width, height) * 0.1;
+      image(imagemNoite, 20, 20, tamanhoQuadrado, tamanhoQuadrado);
+
     }else{
-        console.log("Chamando gameScene2");
-        draw_Board();
+      draw_Board();
       gameScene();
       loja.mostrar();
       leaderboard.mostrar();
@@ -101,6 +102,12 @@ function mousePressed() {
                   const animal = animaisNoCativeiro[k];
                   console.log("Nome do animal:", animal.nome);
                   console.log(animal.saude, animal.limpeza)
+ //    if (Math.random() < 0.9) { 
+//       console.log("O animal", animal.nome, "adoeceu!");
+//       simularDoenca(animal) 
+//       console.log("Nova saúde do animal:", animal.saude);
+                    
+   //               }
                   //atualizarAtributosAnimal(animal.animal_id, animal.fome, animal.saude, animal.limpeza)
                 
                  

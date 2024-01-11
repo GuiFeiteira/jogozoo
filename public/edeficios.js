@@ -69,10 +69,10 @@ setInterval(atualizarDinheiro2(), intervaloAtualizacao);
 
 
 let categorias = [
-    { nome: "Peluches", preco: 20, quantidade: 5},
-    { nome: "T-shirt", preco: 20, quantidade: 8},
-    { nome: "Sweat", preco: 30, quantidade: 8},
-    { nome: "Canecas", preco: 10, quantidade: 10},
+    { nome: "Peluches", preco: 20, quantidade: 5, quantidadeMax: 20},
+    { nome: "T-shirt", preco: 20, quantidade: 8, quantidadeMax: 15},
+    { nome: "Sweat", preco: 30, quantidade: 8, quantidadeMax: 15},
+    { nome: "Canecas", preco: 10, quantidade: 10, quantidadeMax: 20},
   ];
 
 
@@ -116,7 +116,7 @@ let categorias = [
       textSize(16);
       text(
         `${categoria.nome}
-        Preço: ${categoria.preco.toFixed(2)}  Quantidade: ${categoria.quantidade}`,
+        Preço: ${categoria.preco.toFixed(2)}€ Quantidade: ${categoria.quantidade}/${categoria.quantidadeMax} `,
         categoriaX + 10,
         categoriaY + 4
       );
@@ -132,7 +132,7 @@ let categorias = [
     }
   
     textSize(20);
-    text("Dinheiro atual: " + dinheiroLoja.toFixed(2), quadradoX + 20, quadradoY + 20);
+    text("Dinheiro atual: " + dinheiroLoja.toFixed(2)+ "€", quadradoX + 20, quadradoY + 20);
   
     // Botão para coletar dinheiro
     let btnColetar = createButton("Coletar Dinheiro");
@@ -144,10 +144,11 @@ let categorias = [
   
   
   function comprarProduto(categoria) {
-    if (dinheiro >= categoria.preco && categoria.quantidade > 0) {
+    if (dinheiro >= categoria.preco && categoria.quantidade < categoria.quantidadeMax) {
       dinheiro   -= categoria.preco;
-      categoria.quantidade--;
+      categoria.quantidade += 1;
       console.log(`Produto ${categoria.nome} comprado por ${categoria.preco.toFixed(2)}`);
+      
     } else {
       console.log("Não é possível comprar o produto.");
     }

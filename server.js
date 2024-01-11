@@ -227,7 +227,7 @@ app.get("/getTiles/:id", (req, res) => {
 
 app.get("/getAnimais/:id", (req, res) => {
   let userId = req.params.id;
-
+  
 
   let sql = `
     SELECT animal_id, nome, url, tile_x, tile_y, fome, limpeza, saude
@@ -240,6 +240,7 @@ app.get("/getAnimais/:id", (req, res) => {
 
     res.send(result);
   });
+  
 });
 
 app.post("/LeaderBoard", async (req, res) => {

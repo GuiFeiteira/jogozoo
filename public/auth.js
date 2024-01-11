@@ -21,10 +21,10 @@ function registar() {
 
   httpPost("/registro", user, "json", (respostaServer) => {
     userServ = respostaServer;
-    console.log('lllll', userServ);
+    //console.log('lllll', userServ);
     
     if (respostaServer.ack == 0) {
-      alert("Utilizador Já Existe");
+
     } else {
       registroConcluido = true;
       registroConcluido2 = true;
@@ -53,15 +53,16 @@ function login() {
   httpPost("/login", user, "json", (respostaServer) => {
     if (respostaServer.length > 0) {
       userServ = respostaServer;
-      console.log('bah bahb', userServ)
+      //.log('bah bahb', userServ)
     
       loadJSON("/getTiles/" + userServ[0].id, (resposta) => {
         buildingsPlayer = resposta;
-        console.log(buildingsPlayer);
+        //console.log(buildingsPlayer);
 
         loadJSON("/getAnimais/" + userServ[0].id, (animaisResposta) => {
           animais = animaisResposta;
-           console.log('ANIMAISSS', animais )
+
+           //console.log('ANIMAISSS', animais )
 
 
 
@@ -71,7 +72,7 @@ function login() {
             let x = construcao.tile_x
             let y = construcao.tile_y
             if (board[x] && board[x][y]) {
-              console.log("A meter construção", construcao);
+              //console.log("A meter construção", construcao);
               if (construcao.building_type === 'cativeiro') {
                 board[x][y].cativeiro = new Cativeiro(fence);
                 board[x][y].setOcupado()
@@ -91,8 +92,9 @@ function login() {
 
                   if (animal.tile_x === x && animal.tile_y === y) {
                     try {
-                      
+                      animal.atua
                       board[x][y].cativeiro.adicionarAnimal(animal);
+                      
                       
                       console.log(`Animal ${animal.nome} adicionado ao cativeiro em (${x}, ${y}).`);
                       loop()
@@ -152,7 +154,7 @@ function login() {
       loop();
 
     } else {
-      alert("Login sem sucesso");
+      
     }
   });
 }
