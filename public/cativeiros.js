@@ -9,6 +9,8 @@ class Cativeiro {
     let offsetY = y;
     for (let i = 0; i < this.animais.length; i++) {
       let animal = this.animais[i];
+      this.atualizarAtributosAnimais()
+
       if (animal && animal.imagem) {
        
         let animalX = offsetX + (i % 2) * tamanho / 1.2;
@@ -34,8 +36,24 @@ class Cativeiro {
       this.animais.push(animal);
       console.log('bahhhhh')
       console.log(this.animais)
+      adicionarAnimalNoServidor( i , j, animal) 
     } else {
       console.log("O cativeiro já está cheio de animais!");
+    }
+  }
+
+  atualizarAtributosAnimais() {
+    for (let i = 0; i < this.animais.length; i++) {
+      let animal = this.animais[i];
+      
+      animal.fome -= 0.1;
+      animal.saude -= 0.05;
+      animal.limpeza -= 0.07;
+
+      animal.fome = Math.max(0, animal.fome);
+      animal.saude = Math.max(0, animal.saude);
+      animal.limpeza = Math.max(0, animal.limpeza);
+
     }
   }
 
@@ -86,7 +104,7 @@ function adicionarAnimalAoCativeiro(mx, my, animal) {
     }
     if (tileClicado) {
       const { i, j } = tileClicado;
-      adicionarAnimalNoServidor( i , j, animal)
+      
     }
     
 

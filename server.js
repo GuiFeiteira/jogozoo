@@ -188,7 +188,7 @@ app.post("/insertAnimal", (req, res) => {
 });
 
 app.post("/atualizarAtributosAnimal", (req, res) => {
-  let animalId = req.body.animal_id;
+  let animal_id = req.body.animal_id;
   let fome = req.body.fome;
   let saude = req.body.saude;
   let limpeza = req.body.limpeza;
@@ -201,7 +201,7 @@ app.post("/atualizarAtributosAnimal", (req, res) => {
     "', limpeza = '" +
     limpeza +
     "' WHERE animal_id = '" +
-    animald +
+    animal_id +
     "';";
 
   dbase.query(sql, (err, result) => {

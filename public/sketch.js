@@ -108,7 +108,7 @@ function mousePressed() {
 //       console.log("Nova saúde do animal:", animal.saude);
                     
    //               }
-                  //atualizarAtributosAnimal(animal.animal_id, animal.fome, animal.saude, animal.limpeza)
+                  atualizarAtributosAnimal(animal.animal_id, animal.fome, animal.saude, animal.limpeza)
                 
                  
                   

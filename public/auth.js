@@ -90,9 +90,16 @@ function login() {
                   });
                   
 
-                  if (animal.tile_x === x && animal.tile_y === y) {
+                  if (animal.tile_x === x && animal.tile_y === y ||
+                      animal.tile_x === x + 1 && animal.tile_y === y ||
+                      animal.tile_x === x && animal.tile_y === y + 1 ||
+                      animal.tile_x === x + 1 && animal.tile_y + 1  
+                    ) {
+                    animal.fome = 3 + Math.random() * 7; 
+                    animal.saude = 3 + Math.random() * 7;
+                    animal.limpeza = 3 + Math.random() * 7;
                     try {
-                      animal.atua
+                      
                       board[x][y].cativeiro.adicionarAnimal(animal);
                       
                       
