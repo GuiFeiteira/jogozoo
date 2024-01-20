@@ -85,6 +85,7 @@ function mostrarInformacoesCativeiro(cativeiro) {
       
       fill(0, 255, 0); // Cor da barra de limpeza (verde)
       rect(offsetX + 100, offsetY + imageSize + 5 + barraHeight + 5, limpezaBarra, barraHeight);
+
       fill(0, 0, 255); // Cor da barra de saúde (azul)
       rect(offsetX + 100, offsetY + imageSize + 5 + 2 * (barraHeight + 5), saudeBarra, barraHeight);
 
