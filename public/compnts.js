@@ -8,10 +8,19 @@ function gameScene() {
 
   desenharBarraDinheiro();
   if (!noite) {
-    setTimeout(npc,5000);
+    // Inicie o movimento inicial
+    setTimeout(() => {
+      npc(); // Chama a função npc uma vez
+      // Use setInterval para chamar npc a cada 5000 milissegundos (5 segundos)
+      setTimeout(() => {
+        npc(); // Chama a função npc periodicamente
+      }, 5000);
+    }, 5000);
+
+    noLoop();
   }
-  
 }
+
 
 function desenharBarraDinheiro() {
   // Defina as propriedades da barra no topo

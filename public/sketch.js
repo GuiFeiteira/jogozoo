@@ -49,8 +49,8 @@ function draw() {
       
       draw_Board();
       gameScene();
-      loja.mostrar();
-      leaderboard.mostrar();
+      //loja.mostrar();
+      //leaderboard.mostrar();
       fill(0, 0, 255, 128); 
       rect(0, 0, width, height);
       tamanhoQuadrado = min(width, height) * 0.1;
@@ -84,6 +84,9 @@ function draw() {
 
 function mousePressed() {
   if (scene === 2) {
+    setInterval(diminuirQuantidadeProdutos, intervaloAtualizacao);
+    setInterval(atualizarDinheiro2, intervaloAtualizacao);
+
     for (let i = 0; i < board.length; i++) {
       for (let j = 0; j < board[i].length; j++) {
         if (board[i][j].click_Tile(mouseX, mouseY)) {
@@ -102,12 +105,12 @@ function mousePressed() {
                   const animal = animaisNoCativeiro[k];
                   console.log("Nome do animal:", animal.nome);
                   console.log(animal.saude, animal.limpeza)
- //    if (Math.random() < 0.9) { 
-//       console.log("O animal", animal.nome, "adoeceu!");
-//       simularDoenca(animal) 
-//       console.log("Nova saúde do animal:", animal.saude);
-                    
-   //               }
+                    if (Math.random() < 0.9) { 
+                       console.log("O animal", animal.nome, "adoeceu!");
+                       simularDoenca(animal) 
+                       console.log("Nova saúde do animal:", animal.saude);
+                       }
+
                   atualizarAtributosAnimal(animal.animal_id, animal.fome, animal.saude, animal.limpeza)
                 
                  
@@ -129,6 +132,10 @@ function mousePressed() {
               }
               if (board[i][j].edificio.nome === 'Armazem') {
                 console.log("Armazem");
+              }
+              if (board[i][j].edificio.nome === 'Clinica') {
+                animaisDoentes()
+                console.log("Clinica");
               }
 
 

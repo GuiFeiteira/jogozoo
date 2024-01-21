@@ -50,12 +50,18 @@ function adicionarEdificioComprado(mx, my, edificio) {
 
 let dinheiroLoja = 0; 
 let taxaProducao = 10; // Dinheiro gerado por segundo
-let intervaloAtualizacao = 400000; // 40 segundos em milissegundos
+let intervaloAtualizacao = 7000; // 40 segundos em milissegundos
 
 function atualizarDinheiro2() {
-  dinheiroLoja += taxaProducao;
-  console.log("Dinherio atual:", dinheiroLoja.toFixed(2));
+  for (let i = 0; i < categorias.length; i++) {
+    let categoria = categorias[i];
+    if (categoria.quantidade > 0) {
+      dinheiroLoja += taxaProducao;
+      console.log("Dinheiro atual:", dinheiroLoja.toFixed(2));
+    }
+  }
 }
+
 
 function coletarDinheiroLoja() {
   console.log("Dinheiro coletado:", dinheiroLoja.toFixed(2));
@@ -65,7 +71,6 @@ function coletarDinheiroLoja() {
   
 }
 
-setInterval(atualizarDinheiro2(), intervaloAtualizacao);
 
 
 let categorias = [
@@ -152,4 +157,38 @@ let categorias = [
     } else {
       console.log("Não é possível comprar o produto.");
     }
+  }
+
+  function diminuirQuantidadeProdutos() {
+    for (let i = 0; i < categorias.length; i++) {
+      let categoria = categorias[i];
+      if (categoria.quantidade > 0) {
+        categoria.quantidade--;
+      }
+    }
+  }
+  
+  
+  function animaisDoentes(){
+    let quadradoX;
+    let quadradoY;
+    let quadradoLargura = 600;
+    let quadradoAltura = 350;
+  
+    quadradoX = width / 2 - quadradoLargura / 2;
+    quadradoY = height / 2 - quadradoAltura / 2;
+  
+    fill(255, 253, 150, 245);
+    rect(quadradoX, quadradoY, quadradoLargura, quadradoAltura);
+    textAlign(LEFT, TOP);
+    fill(0);
+  
+    let btnFechar = createButton("  X  ");
+    btnFechar.position(quadradoX + quadradoLargura - 30, quadradoY + 10);
+    btnFechar.mousePressed(() => {
+
+      btnFechar.remove();
+  
+      loop();
+    });
   }
