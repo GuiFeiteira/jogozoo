@@ -204,7 +204,8 @@ function adicionarAnimalNoServidor(tileX, tileY, animal) {
     nome: animal.nome,
     fome: animal.fome,
     limpeza: animal.limpeza,
-    saude: animal.saude
+    saude: animal.saude,
+    tipo: animal.tipo
   };
 
   httpPost("/insertAnimal", data, "json", (respostaServer) => {

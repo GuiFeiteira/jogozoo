@@ -1,10 +1,12 @@
 
 
 class Animal {
-  constructor(nome, preco, imagem) {
+  constructor(nome, preco, imagem, tipo) {
     this.nome = nome;
     this.preco = preco;
     this.imagem = imagem;
+    this.tipo = tipo;
+    this.bloqueado = true;
     
 
     // Atributos de fome, limpeza e saúde
@@ -21,6 +23,10 @@ class Animal {
     setInterval(() => {
       this.atualizarAtributos();
     }, 1000); // Atualiza a cada segundo (ajuste conforme necessário)
+  }
+
+  desbloquear() {
+    this.bloqueado = false;
   }
 
   // Método para alimentar o animal

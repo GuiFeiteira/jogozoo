@@ -53,12 +53,14 @@ let taxaProducao = 10; // Dinheiro gerado por segundo
 let intervaloAtualizacao = 7000; // 40 segundos em milissegundos
 
 function atualizarDinheiro2() {
-  for (let i = 0; i < categorias.length; i++) {
-    let categoria = categorias[i];
-    if (categoria.quantidade > 0) {
-      dinheiroLoja += taxaProducao;
-      console.log("Dinheiro atual:", dinheiroLoja.toFixed(2));
-    }
+  // Escolher uma categoria aleatória com quantidade maior que zero
+  let categoriasDisponiveis = categorias.filter(categoria => categoria.quantidade > 0);
+  if (categoriasDisponiveis.length > 0) {
+    let categoriaAleatoria = categoriasDisponiveis[Math.floor(Math.random() * categoriasDisponiveis.length)];
+    
+    dinheiroLoja += taxaProducao;
+    categoriaAleatoria.quantidade--; // Diminuir apenas a quantidade da categoria aleatória
+    console.log(`Dinheiro atual: ${dinheiroLoja.toFixed(2)}, Quantidade do produto ${categoriaAleatoria.nome} diminuída.`);
   }
 }
 
@@ -159,15 +161,7 @@ let categorias = [
     }
   }
 
-  function diminuirQuantidadeProdutos() {
-    for (let i = 0; i < categorias.length; i++) {
-      let categoria = categorias[i];
-      if (categoria.quantidade > 0) {
-        categoria.quantidade--;
-      }
-    }
-  }
-  
+
   
   function animaisDoentes(){
     let quadradoX;

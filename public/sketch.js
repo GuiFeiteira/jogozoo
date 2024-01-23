@@ -17,6 +17,10 @@ let imagemNoite;
 let scene = 0;
 let userServ;
 function setup() {
+  if (!noite && gameScene) {
+    setInterval(atualizarDinheiro2, intervaloAtualizacao);  
+  }
+  
   createCanvas(windowWidth, windowHeight);
   squareSize = min(width, height) / gridSize;
   loja = new Loja();
@@ -26,8 +30,8 @@ function setup() {
   board[17][6].bilheteira = new Bilheteira(both);
 }
 
-let tempoDia = 40; // 40 segundos (20 segundos para o dia e 20 segundos para a noite)
-let tempoDiaAtual = 0; // Contador para o tempo do ciclo dia/noite
+let tempoDia = 40; 
+let tempoDiaAtual = 0; 
 let noite = false;
 
 function draw() {
@@ -39,6 +43,10 @@ function draw() {
     verificarSelecaoGenero(width / 3, height / 2, 200, 220, "Homem");
     verificarSelecaoGenero((3 * width) / 4, height / 2, 200, 220, "Mulher");
   } else if (scene === 2) {
+
+
+      
+    
     tempoDiaAtual += deltaTime / 1000;
     if (tempoDiaAtual >= tempoDia) {
       tempoDiaAtual = 0; 
@@ -61,6 +69,7 @@ function draw() {
       gameScene();
       loja.mostrar();
       leaderboard.mostrar();
+      
     }
 
 
@@ -84,8 +93,8 @@ function draw() {
 
 function mousePressed() {
   if (scene === 2) {
-    setInterval(diminuirQuantidadeProdutos, intervaloAtualizacao);
-    setInterval(atualizarDinheiro2, intervaloAtualizacao);
+
+   
 
     for (let i = 0; i < board.length; i++) {
       for (let j = 0; j < board[i].length; j++) {
@@ -105,11 +114,11 @@ function mousePressed() {
                   const animal = animaisNoCativeiro[k];
                   console.log("Nome do animal:", animal.nome);
                   console.log(animal.saude, animal.limpeza)
-                    if (Math.random() < 0.9) { 
-                       console.log("O animal", animal.nome, "adoeceu!");
-                       simularDoenca(animal) 
-                       console.log("Nova saúde do animal:", animal.saude);
-                       }
+//                    if (Math.random() < 0.9) { 
+//                       console.log("O animal", animal.nome, "adoeceu!");
+//                       simularDoenca(animal) 
+//                       console.log("Nova saúde do animal:", animal.saude);
+//                       }
 
                   atualizarAtributosAnimal(animal.animal_id, animal.fome, animal.saude, animal.limpeza)
                 
