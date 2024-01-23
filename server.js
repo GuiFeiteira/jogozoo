@@ -57,12 +57,12 @@ app.post("/registro", (req, res) => {
         // Recupere o ID do utilizador recém-criado
         let userId = result.insertId;
 
-        // Agora, insira um registo correspondente na tabela grid
+        
         let initGrid = "INSERT INTO tiles(user_id) VALUES(" + userId + ")";
         dbase.query(initGrid, (err, result) => {
           if (err) throw err;
 
-          // Após a inserção bem-sucedida, inicialize o dinheiro
+          
           let initMoney =
             "UPDATE utilizadores SET dinheiro = 500 WHERE nome = '" +
             nome +
@@ -165,20 +165,24 @@ app.post("/insertAnimal", (req, res) => {
   let tileX = req.body.tile_x;
   let tileY = req.body.tile_y;
   let nome = req.body.nome;
-  let url = './recursos/'+ nome + '.png';  // Incluindo a palavra "sopa" no URL
+  let url = './recursos/'+ nome + '.png';  
+  let tipo = req.body.tipo
 
   let sql =
-    "INSERT INTO animais (`user_id`, `tile_x`, `tile_y`, `nome`, `url`) VALUES ('" +
-    userId +
-    "','" +
-    tileX +
-    "','" +
-    tileY +
-    "','" +
-    nome +
-    "','" +
-    url +
-    "');";
+  "INSERT INTO animais (`user_id`, `tile_x`, `tile_y`, `nome`, `url`, `tipo`) VALUES ('" +
+  userId +
+  "','" +
+  tileX +
+  "','" +
+  tileY +
+  "','" +
+  nome +
+  "','" +
+  url +
+  "','" +
+  tipo +
+  "');";
+
 
   dbase.query(sql, (err, result) => {
     if (err) throw err;
@@ -230,7 +234,7 @@ app.get("/getAnimais/:id", (req, res) => {
   
 
   let sql = `
-    SELECT animal_id, nome, url, tile_x, tile_y, fome, limpeza, saude
+    SELECT animal_id, nome, url, tile_x, tile_y, fome, limpeza, saude, tipo
     FROM animais
     WHERE user_id = '${userId}';
   `;

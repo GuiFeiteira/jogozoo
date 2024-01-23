@@ -6,7 +6,13 @@ class Loja {
     this.botaoAltura = 40;
     this.barraLateralX = 20;
     this.barraAberta = false;
+    this.proximoAnimalDesbloquear = {
+      leao: 0,
+      elefante: 0,
+      girafa: 0,
       
+    };
+    
     this.produtos = {
       Cativeiros: [
         new Cativeiro_Loja("Cativeiro Normal", 200, fence),
@@ -25,11 +31,15 @@ class Loja {
         new Decoracao('flor', 50, flores)
       ],
       Animais: [
-        new Animal("lion", 100, loadImage("./recursos/lion.png")),
-        new Animal("elephant", 150, loadImage("./recursos/elephant.png")),
-        new Animal("giraffe", 120, loadImage("./recursos/giraffe.png")),
+        new Animal("lion", 100, loadImage("./recursos/lion.png"), 'leao'),          
+        new Animal("elephant", 150, loadImage("./recursos/elephant.png"), 'elefante'),
+        new Animal("giraffe", 120, loadImage("./recursos/giraffe.png"), 'girafa'),
+        new Animal('lion (4)', 200, loadImage("./recursos/lion (4).png"), 'leao'),
+        new Animal('lions', 400, loadImage("./recursos/lions.png"), 'leao'),
+        new Animal("giraffe (1)", 240, loadImage("./recursos/giraffe (1).png"), 'girafa'),
       ],
     };
+    
     this.produtoSelecionado = null;
     this.barraX = 0;
     this.barraY = 0;
@@ -64,8 +74,11 @@ class Loja {
 
         this.produtoSelecionado.comprado = true;
         if (this.produtoSelecionado instanceof Animal) {
-          
+          this.desbloquearProximoAnimal(this.produtoSelecionado.tipo);
+          console.log("ANIMAL A ABABABB", this.produtoSelecionado.tipo)
+
           this.aguardandoCliqueAnimal = true;
+          
           
           loop();
         } else if (this.produtoSelecionado instanceof Cativeiro_Loja) {
@@ -103,23 +116,33 @@ class Loja {
     if (categoria !== null) {
       this.barraX = this.barraLateralX;
       this.barraY = height - 110;
-      precoAtualizado = false
+      precoAtualizado = false;
       // Desenhe a barra
       fill(200);
       rect(this.barraX, this.barraY, width - this.barraLateralX * 2, 150, 10);
-
+  
       let espacamento = 30;
-
-      //this.produtoSelecionado = null;
-
+  
       // Verificar a categoria atual e exibir os produtos correspondentes
       let produtos = this.produtos[categoria];
-
+  
       for (let i = 0; i < produtos.length; i++) {
         let produto = produtos[i];
+  
+        // Verifica se é um animal e se está desbloqueado
+        if (produto instanceof Animal) {
+          let tipoAnimal = produto.tipo;
+          let proximoAnimalDisponivel = this.obterProximoAnimalDisponivel(tipoAnimal);
+  
+          if (proximoAnimalDisponivel === null || produto !== proximoAnimalDisponivel) {
+            // Se não for o próximo animal disponível, não exibe na loja
+            continue;
+          }
+        }
+  
         let botaoFecharX = this.barraX + width - this.barraLateralX * 2 - 30;
         let botaoFecharY = this.barraY + 10;
-
+  
         let produtoX = this.barraX + 20 + (80 + espacamento) * i;
         let produtoY = this.barraY + 10;
         if (produto.comprado) {
@@ -127,19 +150,19 @@ class Loja {
         } else {
           fill(255);
         }
-
+  
         rect(produtoX, produtoY, 90, 90, 10);
-
+  
         fill(0);
         text("X", botaoFecharX + 10, botaoFecharY + 10);
-
+  
         if (produto.imagem) {
           image(produto.imagem, produtoX + 18, produtoY + 10, 55, 55);
         }
-
+  
         fill(0);
         text(`Preço: ${produto.preco}`, produtoX + 45, produtoY + 80);
-
+  
         if (
           mouseX > produtoX &&
           mouseX < produtoX + 80 &&
@@ -239,6 +262,23 @@ class Loja {
           
         }
       }
+    }
+  }
+  desbloquearProximoAnimal(tipo) {
+    this.proximoAnimalDesbloquear[tipo]++;
+    console.log("animal a desbloquera", this.proximoAnimalDesbloquear[tipo])
+    this.proximoAnimalDesbloquear[tipo] = this.proximoAnimalDesbloquear[tipo] -1
+  }
+  obterProximoAnimalDisponivel(tipo) {
+    const animais = this.produtos.Animais.filter(animal => animal.tipo === tipo);
+    const indiceProximo = this.proximoAnimalDesbloquear[tipo];
+    
+    if (indiceProximo < animais.length) {
+      
+      return animais[indiceProximo];
+      
+    } else {
+      return null; // Não há mais animais desbloqueados desse tipo
     }
   }
 }

@@ -33,10 +33,12 @@ class Cativeiro {
 
   adicionarAnimal(animal) {
     if (this.animais.length < 4) {
-      this.animais.push(animal);
-      console.log('bahhhhh')
-      console.log(this.animais)
-      adicionarAnimalNoServidor( i , j, animal) 
+      if (this.animais.length === 0 || animal.tipo === this.animais[0].tipo) {
+        this.animais.push(animal);
+        console.log(`${animal.nome} adicionado ao cativeiro.`);
+      } else {
+        console.log(`O cativeiro só aceita animais do tipo ${this.animais[0].tipo}.`);
+      }
     } else {
       console.log("O cativeiro já está cheio de animais!");
     }
@@ -86,27 +88,43 @@ function adicionarAnimalAoCativeiro(mx, my, animal) {
   const cativeiroClicado = encontrarCativeiroClicado(mx, my);
 
   if (cativeiroClicado) {
+    const proximoAnimal = loja.obterProximoAnimalDisponivel(animal.tipo);
+
+    if (proximoAnimal) {
+      // Remove o animal atual da loja e adiciona o próximo
+      loja.produtos.Animais = loja.produtos.Animais.filter(a => a !== animal);
+      loja.produtos.Animais.push(proximoAnimal);
+
+      // Incrementa o índice do próximo animal disponível
+      loja.desbloquearProximoAnimal(animal.tipo);
+    }
+
+    // Adiciona o animal clicado ao cativeiro
     cativeiroClicado.adicionarAnimal(animal);
-    
+
+    // Atualiza o desenho do cativeiro
     cativeiroClicado.desenharCativeiro(mx, my, squareSize);
-    
+
+    // Encontra o tile clicado no tabuleiro
+    let tileClicado = null;
     for (let i = 0; i < board.length; i++) {
       for (let j = 0; j < board[i].length; j++) {
         if (board[i][j].click_Tile(mx, my)) {
           tileClicado = { i, j };
           console.log('Clicou no tile:', i, j);
-          break; 
+          break;
         }
       }
       if (tileClicado) {
-        break; 
+        break;
       }
     }
+
+    // Se encontrou o tile clicado, adiciona o animal ao servidor
     if (tileClicado) {
       const { i, j } = tileClicado;
-      
+      adicionarAnimalNoServidor(i, j, animal);
     }
-    
 
     console.log("Animal adicionado ao cativeiro com sucesso.", cativeiroClicado);
   } else {
@@ -115,6 +133,7 @@ function adicionarAnimalAoCativeiro(mx, my, animal) {
 
   loop();
 }
+
 
 function encontrarCativeiroClicado(mx, my) {
   for (let i = 0; i < board.length; i++) {
